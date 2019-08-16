@@ -7,7 +7,7 @@
     "explore": "gridsome explore",
     "newpost": "node scripts/newPost.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -b master -d dist"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^1.2.0",
