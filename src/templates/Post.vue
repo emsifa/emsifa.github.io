@@ -13,8 +13,7 @@
 
         <footer v-if="$page.post.author || $page.post.tags" class="flex flex-wrap pb-10 sm:pb-16">
           <div>
-            <g-link v-for="tag in $page.post.tags" :key="tag.id" :to="`${tag.path}/`" class="inline-block text-blue-700 hover:text-white hover:bg-blue-700 border border-blue-700 font-sans font-semibold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-color transition-bg">
-            <svg class="inline w-3 fill-current align-middle mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img"><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+            <g-link v-for="tag in $page.post.tags" :key="tag.id" :to="`${tag.path}/`" class="inline-block text-gray-600 hover:text-white hover:bg-gray-600 border border-gray-600 font-sans font-semibold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-color transition-bg">
             {{ tag.title }}
             </g-link>
           </div>
@@ -29,7 +28,7 @@
                 <g-link :to="`${$page.post.author.path}/`" class="text-black hover:text-gray-600 capitalize border-b-2 border-transparent transition-color">{{ titleCase($page.post.author.title) }}</g-link>
               </h4>
               <p class="leading-normal">
-                <g-link :to="`${$page.post.author.path}/`" class="text-blue-500 hover:text-blue-700 transition-color">See all posts by {{ titleCase($page.post.author.title) }} &rarr;</g-link>
+                <g-link :to="`${$page.post.author.path}/`" class="text-blue-500 hover:text-gray-700 transition-color">See all posts by {{ titleCase($page.post.author.title) }} &rarr;</g-link>
               </p>
             </div> -->
           </div>

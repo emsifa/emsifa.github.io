@@ -1,8 +1,8 @@
 <template>
-  <Layout class="bg-white">
+  <Layout class="">
     <main>
       <header>
-        <div class="max-w-xl text-center md:max-w-3xl xl:max-w-4xl mx-auto px-6 py-10 md:py-16 border-b border-gray-300">
+        <div class="max-w-xl text-center md:max-w-3xl xl:max-w-4xl mx-auto px-6 py-10 md:py-16">
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-sans font-bold mb-1 text-gray-700">
             <g-link to="/" class="text-black w-full inline-block text-center">
               <img src="/images/logo.png" class="inline" alt="Logo" style="height:125px;">
@@ -15,7 +15,9 @@
         </div>
       </header>
       <section>
-        <post-item v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
+        <div class="container max-w-3xl bg-white">
+          <post-item v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" />
+        </div>
       </section>
       <pagination :info="$page.posts.pageInfo" v-if="$page.posts.pageInfo.totalPages > 1" />
       <site-footer class="py-8 sm:py-16" />

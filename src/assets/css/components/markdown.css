@@ -42,13 +42,34 @@
   }
 
   pre.shiki {
-    @apply bg-gray-codeblock !important;
-    @apply border border-gray-300 -mx-6 p-6 mb-4 text-sm font-mono leading-code overflow-x-auto scrolling-touch;
+    @apply -mx-6 p-6 mb-4 text-sm font-mono leading-code overflow-x-auto scrolling-touch;
+    position: relative;
+    overflow: visible;
+    /* overflow-y: visible;
+    overflow-x: auto; */
+  }
+
+  pre.shiki > code {
+    max-width: 100%;
+    overflow: auto;
+    display: inline-block;
+  }
+
+  pre.shiki:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    width: 94%;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    @apply bg-gray-700;
+    opacity: 0.15;
+    height: 10px;
   }
 
   code.shiki {
-    @apply bg-gray-100 text-gray-700 !important;
-    @apply border border-gray-300 p-4 block mb-4 font-mono text-sm leading-code overflow-x-auto scrolling-touch;
+    @apply p-4 block mb-4 font-mono text-sm leading-code overflow-x-auto scrolling-touch;
   }
 
   .shiki-inline {
