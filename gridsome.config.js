@@ -5,9 +5,9 @@ class TailwindExtractor {
 }
 
 module.exports = {
-  siteName: 'Coretan Makhluk Penasaran',
+  siteName: 'Webnya Muhammad Syifa',
   siteDescription: "bla bla bla",
-  siteUrl: 'https://blog.emsifa.com',
+  siteUrl: 'https://www.emsifa.com',
   titleTemplate: `%s`,
   icon: 'src/favicon.png',
 
@@ -21,6 +21,7 @@ module.exports = {
           // theme: 'min-dark',
           // theme: 'dark_vs',
           theme: 'nord',
+          skipInline: true
         }]
       ]
     }
@@ -32,7 +33,7 @@ module.exports = {
       options: {
         path: 'content/posts/**/*.md',
         typeName: 'Post',
-        route: '/:slug',
+        route: '/artikel/:slug',
         refs: {
           tags: {
             typeName: 'Tag',
@@ -64,14 +65,14 @@ module.exports = {
       options: {
         contentTypeName: 'Post',
         feedOptions: {
-          title: 'Bleda, a Gridsome blog starter',
-          feed_url: 'https://gridsome-starter-bleda.netlify.com/feed.xml',
-          site_url: 'https://gridsome-starter-bleda.netlify.com'
+          title: 'Webnya Muhammad Syifa',
+          feed_url: 'https://www.emsifa.com/feed.xml',
+          site_url: 'https://www.emsifa.com'
         },
         feedItemOptions: node => ({
           title: node.title,
           description: node.description,
-          url: 'https://gridsome-starter-bleda.netlify.com/' + node.slug,
+          url: 'https://www.emsifa.com/' + node.slug,
           author: node.author,
           date: node.date
         }),

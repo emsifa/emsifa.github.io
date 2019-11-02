@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import config from '~/.temp/config.js'
 import PostItem from '@/components/PostItem'
 import SiteFooter from '@/components/Footer'

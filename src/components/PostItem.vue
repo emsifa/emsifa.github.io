@@ -1,47 +1,64 @@
 <template>
-  <article>
-    <div class="mx-auto max-w-3xl px-6 border-b border-gray-200">
-      <div class="py-5 sm:py-10">
-        <header class="mb-8">
-          <time :datetime="post.datetime" class="text-gray-700 text-xs mb-2 uppercase">{{ formatPublishDate(post.datetime) }}</time>
-          <h2 class="text-3xl sm:text-4xl leading-tight font-sans mb-1 sm:mb-2">
-            <g-link :to="`${post.path}/`" class="text-black font-semibold text-gray-700">{{ post.title }}</g-link>
+  <article class="
+    p-3
+    pt-1
+    select-none
+    border-transparent
+    mb-3
+    rounded"
+    :class="{
+      'hover:border-gray-400': light,
+      'hover:bg-gray-200': light,
+      'hover:border-gray-700': !light,
+      'hover:bg-gray-800': !light,
+    }">
+    <div class="flex">
+      <div class="w-auto flex flex-wrap content-center">
+        <img src="/images/icons/redis.png" alt="Thumbnail">
+      </div>
+      <div class="w-auto ml-3">
+        <header>
+          <time :datetime="post.datetime"
+            class="text-xs mb-2 uppercase"
+            :class="{
+              'text-gray-600': light,
+              'text-gray-500': !light,
+            }">
+            {{ timeago(post.datetime) }} LALU
+          </time>
+          <h2 class="text-lg leading-tight font-sans">
+            <g-link :to="`${post.path}/`" class="text-black font-semibold"
+              :class="{
+                'text-gray-700': light,
+                'text-gray-300': !light,
+              }">
+              {{ post.title }}
+            </g-link>
           </h2>
-          <p class="text-gray-700 leading-normal text-sm sm:text-base">
-            <span v-if="post.author">Oleh <g-link :to="`${post.author.path}/`" class="text-gray-700 capitalize border-b border-transparent hover:border-gray-400 transition-border-color" v-if="post.author">{{ titleCase(post.author.title) }}</g-link></span>
-            <span v-if="post.tags && post.tags.length > 0"> di <g-link :to="`${post.tags[0].path}/`" class="text-gray-700 capitalize border-b border-transparent hover:border-gray-400 transition-border-color">{{ titleCase(post.tags[0].title) }}</g-link></span>
-          </p>
         </header>
-        <p class="leading-normal text-lg text-gray-600" v-html="excerpt(post, 160, ' ...')"></p>
       </div>
     </div>
   </article>
 </template>
 
 <script>
-import moment from 'moment'
+import { mapState } from 'vuex'
+import { dateFormat, timeago } from '@/helpers'
 
 export default {
   props: ['post'],
   computed: {
+    ...mapState(['light']),
     formattedPublishDate() {
-      return moment(this.post.datetime).format('DD MMMM, YYYY');
+      return dateFormat(new Date(this.post.datetime), 'dd MMMM, yyyy');
     },
   },
   methods: {
     formatPublishDate(date) {
-      return moment(date).format('DD MMMM, YYYY');
+      return dateFormat(new Date(date), 'dd MMMM, yyyy');
     },
-    excerpt(post, length, clamp) {
-      if (post.excerpt) {
-        return post.excerpt
-      }
-
-      length = length || 280
-      clamp = clamp || ' ...'
-      let text = post.content.replace(/<pre(.|\n)*?<\/pre>/gm, '').replace(/<[^>]+>/gm, '')
-
-      return text.length > length ? `${ text.slice(0, length)}${clamp}` : text
+    timeago(date) {
+      return timeago(new Date(date));
     },
     titleCase(str) {
       return str.replace('-', ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')

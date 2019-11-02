@@ -1,5 +1,5 @@
 <template>
-  <section class="border-b border-gray-300 mx-auto max-w-3xl px-6 md:px-8 py-16">
+  <section class="mx-auto max-w-3xl px-6 md:px-8 py-8">
     <nav role="navigation" aria-label="pagination">
       <ul class="flex items-center justify-between sm:text-lg lg:text-xl">
         <li class="lg:w-1/5">

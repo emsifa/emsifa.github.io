@@ -4,15 +4,15 @@
   }
 
   ul li, ol li {
-    @apply mb-4;
+    @apply mb-0;
   }
 
   ul {
-    @apply list-disc pl-4;
+    @apply list-disc pl-5;
   }
 
   ol {
-    @apply list-decimal pl-4;
+    @apply list-decimal pl-5;
   }
 
   h2, h3, h4, h5, h6 {
@@ -23,8 +23,8 @@
     @apply uppercase;
   }
 
-  h2 { @apply text-2xl; }
-  h3 { @apply text-xl; }
+  h2 { @apply text-xl; }
+  h3 { @apply text-lg; }
   h4 { @apply text-lg; }
   h5 { @apply text-base; }
   h6 { @apply text-sm; }
@@ -42,11 +42,15 @@
   }
 
   pre.shiki {
-    @apply -mx-6 p-6 mb-4 text-sm font-mono leading-code overflow-x-auto scrolling-touch;
+    @apply py-3 px-5 mb-4 text-sm font-mono rounded-lg leading-code overflow-x-auto scrolling-touch;
     position: relative;
     overflow: visible;
     /* overflow-y: visible;
     overflow-x: auto; */
+  }
+
+  .shiki code {
+    @apply bg-transparent border-none;
   }
 
   pre.shiki > code {
@@ -54,7 +58,7 @@
     overflow: auto;
     display: inline-block;
   }
-
+/*
   pre.shiki:after {
     content: '';
     position: absolute;
@@ -66,16 +70,16 @@
     @apply bg-gray-700;
     opacity: 0.15;
     height: 10px;
+  } */
+  code {
+    @apply border text-xs px-2 py-1 rounded;
+    @apply text-gray-700 border-gray-300 bg-gray-100;
   }
 
   code.shiki {
     @apply p-4 block mb-4 font-mono text-sm leading-code overflow-x-auto scrolling-touch;
   }
 
-  .shiki-inline {
-    @apply bg-gray-100 text-gray-700 !important;
-    @apply border border-gray-300 text-xs px-2 py-1 rounded;
-  }
 
   mark {
     @apply bg-yellow-300 px-2;
@@ -94,7 +98,7 @@
   }
 
   blockquote {
-    @apply border-l-4 border-gray-300 p-4 mb-4 mx-4 italic;
+    @apply border-l-4 border-gray-300 p-4 italic mb-4;
 
     p {
       @apply mb-0;
@@ -108,10 +112,6 @@
 
 @screen sm {
   .markdown {
-    blockquote {
-      @apply mx-10;
-    }
-
     h2 { @apply text-4xl; }
     h3 { @apply text-3xl; }
     h4 { @apply text-2xl; }
@@ -133,6 +133,24 @@
   }
 }
 
+article.dark .markdown {
+  p, ul, li, h1, h2, h3, h4 {
+    @apply text-gray-400;
+  }
+
+  code {
+    @apply text-gray-400 border-gray-800 bg-gray-800;
+  }
+
+  .shiki code {
+    @apply bg-transparent border-none;
+  }
+
+  blockquote {
+    @apply border-gray-800;
+  }
+}
+
 table {
   @apply w-full mb-5;
 }
@@ -141,6 +159,7 @@ table th {
   @apply border border-gray-500 px-2 py-1;
   @apply bg-gray-200;
 }
+
 table td {
   @apply border border-gray-500 px-2 py-1;
 }

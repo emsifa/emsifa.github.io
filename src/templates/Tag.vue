@@ -1,21 +1,17 @@
 <template>
-  <Layout>
-    <main class="">
-      <header>
-        <div class="max-w-xl md:max-w-3xl xl:max-w-4xl flex flex-col-reverse mx-auto text-center px-6 pt-24 pb-10 md:py-16">
-          <p class="text-gray-700 leading-normal">{{ $page.tag.belongsTo.totalCount }} posts in total</p>
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-sans font-bold mb-2 capitalize text-gray-700">{{ titleCase($page.tag.title) }}</h1>
-          <svg class="w-5 sm:w-6 fill-current text-gray-500 mx-auto mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" aria-labelledby="tagIcon"><title id="tagIcon">Posts tagged</title><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
-        </div>
-        <nav class="absolute top-0 left-0 z-20 mt-6 ml-6">
-          <g-link to="/" class="text-sm border text-gray-900 border-gray-400 opacity-75 hover:opacity-100 rounded-full px-4 py-2 transition-opacity">&larr; Home</g-link>
-        </nav>
-      </header>
-      <section>
-        <div class="container max-w-3xl bg-white">
-          <post-item v-for="edge in $page.tag.belongsTo.edges" :key="edge.node.id" :post="edge.node" />
-        </div>
-      </section>
+  <Layout subtitle="Ini halaman tag">
+    <main>
+      <container class="select-none">
+        <h4 class="mb-4 font-semibold text-2xl pl-4 pb-4 border-b" :class="{
+          'text-gray-600': light,
+          'border-gray-200': light,
+          'text-gray-400': !light,
+          'border-gray-800': !light,
+        }">
+          {{ $page.tag.title }}
+        </h4>
+        <post-item v-for="edge in $page.tag.belongsTo.edges" :key="edge.node.id" :post="edge.node" />
+      </container>
       <pagination :base="`${$page.tag.path}`" :info="$page.tag.belongsTo.pageInfo" v-if="$page.tag.belongsTo.pageInfo.totalPages > 1" />
       <site-footer class="py-8 sm:py-16" />
     </main>
@@ -23,7 +19,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import { mapState } from 'vuex'
 import config from '~/.temp/config.js'
 import PostItem from '@/components/PostItem'
 import SiteFooter from '@/components/Footer'
@@ -60,17 +56,18 @@ export default {
       ],
     }
   },
-  methods: {
-    titleCase(str) {
-      return str.replace('-', ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
-    }
-  },
   computed: {
+    ...mapState(['light']),
     config () {
       return config
     },
     ogImageUrl () {
       return `${this.config.siteUrl}/images/bleda-card.png`
+    }
+  },
+  methods: {
+    titleCase(str) {
+      return str.replace('-', ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
     }
   },
 }
