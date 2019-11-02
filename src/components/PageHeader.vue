@@ -37,6 +37,7 @@
               transition-all
               focus:outline-none
             "
+            :title="light ? 'Gelapin' : 'Terangin'"
             :class="{
               'hover:bg-gray-300': light,
               'hover:bg-gray-800': !light,

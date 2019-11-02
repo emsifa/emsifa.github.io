@@ -8,7 +8,7 @@
           'text-gray-400': !light,
           'border-gray-800': !light,
         }">
-          {{ $page.tag.title }}
+          <span style="opacity:.5">Tag /</span> {{ $page.tag.title }}
         </h4>
         <post-item v-for="edge in $page.tag.belongsTo.edges" :key="edge.node.id" :post="edge.node" />
       </container>

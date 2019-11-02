@@ -7,7 +7,7 @@
         'text-gray-700': light,
         'text-gray-300': !light,
       }">
-        <img :src="post.cover" v-if="post.cover" :alt="post.title">
+        <g-image :src="post.coverThumb" width="768"/>
         <h1 class="text-3xl sm:text-3xl leading-tight font-sans font-semibold mb-3 mt-5">
           {{ post.title }}
         </h1>

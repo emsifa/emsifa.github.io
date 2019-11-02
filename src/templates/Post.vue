@@ -12,6 +12,7 @@
           <div :class="{'pb-10': $page.post.author || $page.post.tags}" class="markdown text-lg leading-normal text-gray-700" v-html="$page.post.content" />
         </article>
       </container>
+      <post-footer/>
       <site-footer class="pb-8 sm:pb-10" />
     </main>
   </Layout>
@@ -26,12 +27,14 @@ import slugify from '@sindresorhus/slugify'
 import SiteFooter from '@/components/Footer'
 import PageHeader from '~/components/PageHeader'
 import PostHeader from '~/components/PostHeader'
+import PostFooter from '~/components/PostFooter'
 
 export default {
   components: {
     Alert,
     PageHeader,
     PostHeader,
+    PostFooter,
     SiteFooter,
   },
   metaInfo () {
@@ -119,6 +122,7 @@ query Post ($path: String) {
     description
     timeToRead
     cover
+    coverThumb:cover(width: 768, quality: 90)
     fullscreen
     author {
       id

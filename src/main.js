@@ -9,15 +9,17 @@ export default function (Vue, { head, appOptions }) {
   head.htmlAttrs = { lang: 'en', class: 'h-full' }
   head.bodyAttrs = { class: 'antialiased' }
 
+  const light = !process.isClient ? true : (localStorage.getItem('light') || 1) == 1
+
   Vue.use(Vuex)
   appOptions.store = new Vuex.Store({
-    state: {
-      light: localStorage.getItem('light') == 1
-    },
+    state: { light },
     mutations: {
       light (state, light) {
         state.light = light
-        localStorage.setItem("light", light ? 1 : 0)
+        if (process.isClient) {
+          localStorage.setItem("light", light ? 1 : 0)
+        }
       }
     },
     actions: {

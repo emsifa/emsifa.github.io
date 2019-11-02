@@ -1,0 +1,36 @@
+{
+  "featureds": [
+    "cronmu",
+    "api-wilayah-indonesia",
+    "rakit-validation"
+  ],
+  "items": [
+    {
+      "slug": "cronmu",
+      "title": "CRONmu",
+      "description": "Aplikasi pemandu cron kamu",
+      "thumbnail": "/images/open-sources/cronmu.png",
+      "demoUrl": "https://emsifa.github.io/cronmu/",
+      "repoUrl": "https://www.github.com/emsifa/cronmu/",
+      "techStack": ["Svelte", "Tailwindcss", "PEGjs", "GitHub Page"]
+    },
+    {
+      "slug": "api-wilayah-indonesia",
+      "title": "API Statis Wilayah Indonesia",
+      "description": "API statis data wilayah Indonesia",
+      "thumbnail": "/images/open-sources/api-wilayah.png",
+      "demoUrl": "https://emsifa.github.io/api-wilayah-indonesia/",
+      "repoUrl": "https://www.github.com/emsifa/api-wilayah-indonesia/",
+      "techStack": ["PHP", "Vue", "Tailwindcss"]
+    },
+    {
+      "slug": "rakit-validation",
+      "title": "Rakit Validation",
+      "description": "PHP Validation Library",
+      "thumbnail": "/images/open-sources/api-wilayah.png",
+      "demoUrl": "https://packagist.org/packages/rakit/validation",
+      "repoUrl": "https://www.github.com/rakit/validation/",
+      "techStack": ["PHP"]
+    }
+  ]
+}

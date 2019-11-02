@@ -1,0 +1,27 @@
+[
+  {
+    "icon": "facebook",
+    "label": "Facebook",
+    "url": "https://www.facebook.com/em.sifa"
+  },
+  {
+    "icon": "github",
+    "label": "GitHub",
+    "url": "https://www.github.com/emsifa"
+  },
+  {
+    "icon": "instagram",
+    "label": "Instagram",
+    "url": "https://www.instagram.com/em.sifa"
+  },
+  {
+    "icon": "linkedin",
+    "label": "LinkedIn",
+    "url": "https://www.linkedin.com/in/emsifa"
+  },
+  {
+    "icon": "facebook",
+    "label": "Foobarology",
+    "url": "https://www.facebook.com/foobarology"
+  }
+]

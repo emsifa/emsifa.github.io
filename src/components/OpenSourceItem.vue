@@ -1,6 +1,7 @@
 <template>
   <article class="
     p-3
+    pt-3
     select-none
     border-transparent
     mb-3
@@ -17,22 +18,16 @@
       </div>
       <div class="w-auto ml-3">
         <header>
-          <time :datetime="post.datetime"
-            class="text-xs mb-2 uppercase"
-            :class="{
-              'text-gray-600': light,
-              'text-gray-500': !light,
-            }">
-            {{ timeago(post.datetime) }} LALU
-          </time>
           <h2 class="text-lg leading-tight font-sans">
-            <g-link :to="`${post.path}/`" class="text-black font-semibold"
+            <a :href="data.demoUrl" target="_blank" class="text-black font-semibold"
               :class="{
                 'text-gray-700': light,
                 'text-gray-300': !light,
               }">
-              {{ post.title }}
-            </g-link>
+              {{ data.title }}
+              <br/>
+              <small class="text-sm" style="opacity: 0.5">{{ data.description }}</small>
+            </a>
           </h2>
         </header>
       </div>
@@ -45,20 +40,9 @@ import { mapState } from 'vuex'
 import { dateFormat, timeago } from '@/helpers'
 
 export default {
-  props: ['post'],
-  computed: {
-    ...mapState(['light']),
-    formattedPublishDate() {
-      return dateFormat(new Date(this.post.datetime), 'dd MMMM, yyyy');
-    },
-  },
+  props: ['data'],
+  computed: mapState(['light']),
   methods: {
-    formatPublishDate(date) {
-      return dateFormat(new Date(date), 'dd MMMM, yyyy');
-    },
-    timeago(date) {
-      return timeago(new Date(date));
-    },
     titleCase(str) {
       return str.replace('-', ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')
     }

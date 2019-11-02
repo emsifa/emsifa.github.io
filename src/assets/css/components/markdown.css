@@ -45,6 +45,7 @@
     @apply py-3 px-5 mb-4 text-sm font-mono rounded-lg leading-code overflow-x-auto scrolling-touch;
     position: relative;
     overflow: visible;
+    @apply bg-gray-800 !important;
     /* overflow-y: visible;
     overflow-x: auto; */
   }
@@ -106,8 +107,23 @@
   }
 
   hr {
-    @apply h-px bg-gray-300 my-8;
+    @apply bg-gray-300 my-8 border-b border-gray-300;
+    opacity: .5;
   }
+
+  table {
+    @apply w-full mb-5 shadow-lg;
+  }
+
+  table th {
+    @apply border border-gray-400 px-2 py-1;
+    @apply bg-gray-200;
+  }
+
+  table td {
+    @apply border border-gray-400 px-2 py-1;
+  }
+
 }
 
 @screen sm {
@@ -134,7 +150,7 @@
 }
 
 article.dark .markdown {
-  p, ul, li, h1, h2, h3, h4 {
+  p, ul, li, h1, h2, h3, h4, h5, h6 {
     @apply text-gray-400;
   }
 
@@ -149,17 +165,17 @@ article.dark .markdown {
   blockquote {
     @apply border-gray-800;
   }
+
+  table th {
+    @apply bg-gray-800 border-gray-800 text-gray-300;
+  }
+
+  table td {
+    @apply border-gray-800 text-gray-400;
+  }
+
+  hr {
+    @apply border-gray-800 bg-gray-800;
+  }
 }
 
-table {
-  @apply w-full mb-5;
-}
-
-table th {
-  @apply border border-gray-500 px-2 py-1;
-  @apply bg-gray-200;
-}
-
-table td {
-  @apply border border-gray-500 px-2 py-1;
-}

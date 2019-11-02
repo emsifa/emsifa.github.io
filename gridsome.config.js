@@ -17,10 +17,10 @@ module.exports = {
       externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
       plugins: [
         ['gridsome-plugin-remark-shiki', {
-          // theme: 'zeit',
+          theme: 'zeit',
           // theme: 'min-dark',
           // theme: 'dark_vs',
-          theme: 'nord',
+          // theme: 'nord',
           skipInline: true
         }]
       ]
@@ -82,6 +82,12 @@ module.exports = {
         }
       }
     },
+    {
+      use: '@gridsome/plugin-google-analytics',
+      options: {
+        id: 'UA-85031570-1'
+      }
+    }
   ],
 
   chainWebpack: config => {
