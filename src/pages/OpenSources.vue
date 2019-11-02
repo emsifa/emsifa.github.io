@@ -1,5 +1,5 @@
 <template>
-  <Layout subtitle="Ini halaman daftar artikel">
+  <Layout subtitle="Ini halaman open source">
     <main>
       <container class="select-none">
         <h4 class="mb-4 font-semibold text-2xl pl-4" :class="{
