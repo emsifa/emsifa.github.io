@@ -27,8 +27,12 @@
           mr-2
         "
         :class="{
-          'bg-gray-200 text-gray-700': light,
-          'bg-gray-700 text-gray-300': !light,
+          'bg-gray-200': light,
+          'text-gray-700': light && activeTags.indexOf(tech) == -1,
+          'bg-gray-700': !light,
+          'text-gray-300': !light && activeTags.indexOf(tech) == -1,
+          'bg-blue-500': activeTags.indexOf(tech) > -1,
+          'text-white': activeTags.indexOf(tech) > -1
         }">
           {{ tech }}
         </span>
@@ -42,7 +46,16 @@ import { mapState } from 'vuex'
 import { dateFormat, timeago } from '@/helpers'
 
 export default {
-  props: ['data'],
+  props: {
+    data: {
+      type: Object,
+      required: true
+    },
+    activeTags: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: mapState(['light']),
   methods: {
     titleCase(str) {

@@ -10,7 +10,7 @@
           'border-gray-800': !light,
         }">
           Open Source
-          <g-link to="/open-sources" class="text-gray-500 hover:text-blue-500 float-right relative text-sm py-4">
+          <g-link to="/open-sources" class="text-gray-500 hover:text-blue-500 float-right relative text-sm py-3">
             Masih ada {{ $page.openSources.count - $page.featuredOpenSources.edges.length }} lagi ⇾
           </g-link>
         </h4>
@@ -30,7 +30,7 @@
           'border-gray-800': !light,
         }">
           Artikel
-          <g-link to="/artikel/2" class="text-gray-500 hover:text-blue-500 float-right relative text-sm py-4">
+          <g-link to="/artikel/2" class="text-gray-500 hover:text-blue-500 float-right relative text-sm py-3">
             Masih ada {{ $page.articles.count - $page.articles.edges.length }} lagi ⇾
           </g-link>
         </h4>

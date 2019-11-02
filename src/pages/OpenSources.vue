@@ -7,7 +7,7 @@
           'text-gray-400': !light,
         }">
           Open Source
-          <small class="h-auto text-sm text-white py-1 rounded-full float-right px-2 inline-block" :class="{
+          <small class="h-auto text-sm text-white py-1 rounded-full float-right px-2 inline-block mt-1" :class="{
             'bg-gray-500': light,
             'bg-gray-800': !light,
           }">Total: {{ $page.openSources.edges.length }}</small>
@@ -49,7 +49,7 @@
 
         <div class="flex flex-wrap">
           <div class="w-full md:w-4/12 p-3" v-for="edge in filteredOpenSources" :key="edge.node.id">
-            <open-source-card :data="edge.node" />
+            <open-source-card :data="edge.node" :active-tags="activeTags"/>
           </div>
         </div>
       </container>

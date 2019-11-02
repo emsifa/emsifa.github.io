@@ -2,6 +2,8 @@ import Vuex from 'vuex'
 import DefaultLayout from '~/layouts/Default.vue'
 import Container from '~/components/Container.vue'
 
+const themeColor = (light) => light ? '#d4dbe1' : '#1f2734'
+
 export default function (Vue, { head, appOptions }) {
   Vue.component('Layout', DefaultLayout)
   Vue.component('Container', Container)
@@ -10,6 +12,10 @@ export default function (Vue, { head, appOptions }) {
   head.bodyAttrs = { class: 'antialiased' }
 
   const light = !process.isClient ? true : (localStorage.getItem('light') || 1) == 1
+  head.meta.push({
+    name: 'theme-color',
+    content: themeColor(light)
+  })
 
   Vue.use(Vuex)
   appOptions.store = new Vuex.Store({
@@ -19,6 +25,10 @@ export default function (Vue, { head, appOptions }) {
         state.light = light
         if (process.isClient) {
           localStorage.setItem("light", light ? 1 : 0)
+          const meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) {
+            meta.setAttribute('content', themeColor(light))
+          }
         }
       }
     },

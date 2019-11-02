@@ -92,6 +92,7 @@ query Tag ($path: String!, $page: Int) {
             title
             datetime: date (format: "YYYY-MM-DD HH:mm:ss")
             path
+            icon
             content
             excerpt
             description
