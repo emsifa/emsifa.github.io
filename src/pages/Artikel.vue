@@ -88,6 +88,7 @@ export default {
           description
           path
           cover
+          icon
           tags {
             id
             title

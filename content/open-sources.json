@@ -30,7 +30,79 @@
       "thumbnail": "/images/open-sources/api-wilayah.png",
       "demoUrl": "https://packagist.org/packages/rakit/validation",
       "repoUrl": "https://www.github.com/rakit/validation/",
+      "techStack": ["PHP", "Composer"]
+    },
+    {
+      "slug": "bang-framework",
+      "title": "Bang Framework",
+      "description": "PHP Non-OOP Framework",
+      "thumbnail": "/images/open-sources/bang.png",
+      "demoUrl": "https://github.com/emsifa/bang/",
+      "repoUrl": "https://github.com/emsifa/bang/",
       "techStack": ["PHP"]
+    },
+    {
+      "slug": "rakit-framework",
+      "title": "Rakit Framework",
+      "description": "PHP micro framework",
+      "thumbnail": "/images/open-sources/rakit-framework.png",
+      "demoUrl": "https://rakit.github.io/",
+      "repoUrl": "https://github.com/rakit/framework",
+      "techStack": ["PHP", "Composer"]
+    },
+    {
+      "slug": "rakit-session",
+      "title": "Rakit Session",
+      "description": "PHP session manager",
+      "thumbnail": "/images/open-sources/rakit-session.png",
+      "demoUrl": "https://github.com/rakit/session",
+      "repoUrl": "https://github.com/rakit/session",
+      "techStack": ["PHP", "Composer"]
+    },
+    {
+      "slug": "laci-db",
+      "title": "LaciDB",
+      "description": "PHP flat file JSON DBMS",
+      "thumbnail": "/images/open-sources/laci-db.png",
+      "demoUrl": "https://github.com/emsifa/laci-db",
+      "repoUrl": "https://github.com/emsifa/laci-db",
+      "techStack": ["PHP", "Composer"]
+    },
+    {
+      "slug": "block",
+      "title": "Block",
+      "description": "PHP native template system",
+      "thumbnail": "/images/open-sources/laci-db.png",
+      "demoUrl": "https://github.com/emsifa/Block",
+      "repoUrl": "https://github.com/emsifa/Block",
+      "techStack": ["PHP", "Composer"]
+    },
+    {
+      "slug": "backuper",
+      "title": "Backuper",
+      "description": "PHP simple site backuper",
+      "thumbnail": "/images/open-sources/backuper.png",
+      "demoUrl": "https://github.com/emsifa/backuper",
+      "repoUrl": "https://github.com/emsifa/backuper",
+      "techStack": ["PHP"]
+    },
+    {
+      "slug": "vidio-dl",
+      "title": "Vidio-dl",
+      "description": "Vidio.com video downloader",
+      "thumbnail": "/images/open-sources/vidio-dl.png",
+      "demoUrl": "https://github.com/emsifa/vidio-dl",
+      "repoUrl": "https://github.com/emsifa/vidio-dl",
+      "techStack": ["Go"]
+    },
+    {
+      "slug": "mysql-reflection",
+      "title": "MySQL Reflection",
+      "description": "PHP MySQL reflection classes",
+      "thumbnail": "/images/open-sources/mysql-reflection.png",
+      "demoUrl": "https://github.com/emsifa/ReflectionMysql",
+      "repoUrl": "https://github.com/emsifa/ReflectionMysql",
+      "techStack": ["PHP", "Composer"]
     }
   ]
 }

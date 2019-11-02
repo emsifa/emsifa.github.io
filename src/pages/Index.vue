@@ -45,12 +45,12 @@
           'text-gray-400': !light,
           'border-gray-800': !light,
         }">
-          Sosial Media
+          Media Sosial
         </h4>
         <div class="">
           <a :href="link.url" target="_blank" v-for="link in socialMedias" :key="link.label" class="
             inline-block
-            rounded-full
+            rounded
             text-sm
             px-3
             py-2
@@ -141,6 +141,7 @@ export default {
           description
           path
           cover
+          icon
           tags {
             id
             title

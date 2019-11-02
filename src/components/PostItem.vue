@@ -13,7 +13,7 @@
     }">
     <div class="flex">
       <div class="w-auto flex flex-wrap content-center">
-        <img src="/images/icons/redis.png" alt="Thumbnail">
+        <img :src="post.icon" alt="Thumbnail">
       </div>
       <div class="w-auto ml-3">
         <header>
