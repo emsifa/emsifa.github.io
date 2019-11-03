@@ -3,7 +3,7 @@ import DefaultLayout from '~/layouts/Default.vue'
 import Container from '~/components/Container.vue'
 
 const defaultLight = true
-const themeColor = (light) => light ? '#d4dbe1' : '#1f2734'
+const themeColor = (light) => light ? '#1a202c' : '#1a202c'
 
 export default function (Vue, { head, appOptions }, context) {
   Vue.component('Layout', DefaultLayout)
