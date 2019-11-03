@@ -9,7 +9,7 @@
           <g-link to="/" class="text-black w-full inline-block">
             <div class="flex">
               <div class="w-auto">
-                <img src="/images/logo-sm.png" class="inline" alt="Logo">
+                <img src="/images/logo.svg" class="inline" alt="Logo">
               </div>
               <div class="w-auto ml-3 pt-2">
                 <h1 class="text-normal font-semibold" :class="{
@@ -39,10 +39,11 @@
             "
             :title="light ? 'Gelapin' : 'Terangin'"
             :class="{
-              'hover:bg-gray-300': light,
+              'hover:bg-yellow-200': light,
               'hover:bg-gray-800': !light,
             }">
-            {{ light ? '🌒' : '🌔' }}
+            <img v-if="light" src="/images/sun.svg" alt="Sun" style="width:30px; height: 30px;">
+            <img v-if="!light" src="/images/moon.svg" alt="Moon" style="width:30px; height: 30px;">
           </button>
         </div>
       </div>
