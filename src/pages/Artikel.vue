@@ -61,6 +61,9 @@ export default {
     ogImageUrl () {
       return `${this.config.siteUrl}/images/bleda-card.png`
     }
+  },
+  mounted () {
+    this.$adaptLight()
   }
 }
 </script>

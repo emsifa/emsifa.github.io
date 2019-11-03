@@ -9,7 +9,7 @@
           <g-link to="/" class="text-black w-full inline-block">
             <div class="flex">
               <div class="w-auto">
-                <img src="/images/logo.png" class="inline" alt="Logo">
+                <img src="/images/logo-sm.png" class="inline" alt="Logo">
               </div>
               <div class="w-auto ml-3 pt-2">
                 <h1 class="text-normal font-semibold" :class="{

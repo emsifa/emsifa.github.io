@@ -2,24 +2,24 @@ import Vuex from 'vuex'
 import DefaultLayout from '~/layouts/Default.vue'
 import Container from '~/components/Container.vue'
 
+const defaultLight = true
 const themeColor = (light) => light ? '#d4dbe1' : '#1f2734'
 
-export default function (Vue, { head, appOptions }) {
+export default function (Vue, { head, appOptions }, context) {
   Vue.component('Layout', DefaultLayout)
   Vue.component('Container', Container)
 
   head.htmlAttrs = { lang: 'en', class: 'h-full' }
   head.bodyAttrs = { class: 'antialiased' }
 
-  const light = !process.isClient ? true : (localStorage.getItem('light') || 1) == 1
   head.meta.push({
     name: 'theme-color',
-    content: themeColor(light)
+    content: themeColor(defaultLight)
   })
 
   Vue.use(Vuex)
   appOptions.store = new Vuex.Store({
-    state: { light },
+    state: { light: defaultLight },
     mutations: {
       light (state, light) {
         state.light = light
@@ -39,6 +39,11 @@ export default function (Vue, { head, appOptions }) {
     }
   })
 
+  Vue.prototype.$adaptLight = function() {
+    const light = (localStorage.getItem('light') || 1) == 1
+    appOptions.store.dispatch('setLight', !light)
+    this.$nextTick(() => appOptions.store.dispatch('setLight', light))
+  }
   // head.link.push({
   //   rel: 'stylesheet',
   //   href: 'https://fonts.googleapis.com/css?family=Fira+Sans:400,700%7CCardo'

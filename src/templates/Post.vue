@@ -67,6 +67,7 @@ export default {
     import('medium-zoom').then(mediumZoom => {
       this.zoom = mediumZoom.default('.markdown p > img')
     })
+    this.$adaptLight()
   },
   methods: {
     imageLoadError (e) {

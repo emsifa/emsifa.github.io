@@ -136,6 +136,9 @@ export default {
         this.activeTags.push(tag)
       }
     }
+  },
+  mounted () {
+    this.$adaptLight()
   }
 }
 </script>
