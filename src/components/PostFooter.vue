@@ -7,7 +7,7 @@
   }">
     <container>
       <div class="flex">
-        <div class="w-10/12">
+        <div class="w-10/12 mx-auto">
           <h4 class="text-2xl font-semibold mb-4 -mt-4">Suka artikel ini?</h4>
           <p class="mb-8">
             Saya biasanya share artikel-artikel terbaru via
