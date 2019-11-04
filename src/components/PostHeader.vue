@@ -7,7 +7,7 @@
         'text-gray-700': light,
         'text-gray-300': !light,
       }">
-        <g-image :src="post.coverThumb" width="768"/>
+        <g-image :alt="post.title" :src="post.coverThumb" width="768"/>
         <h1 class="text-3xl sm:text-3xl leading-tight font-sans font-semibold mb-3 mt-5">
           {{ post.title }}
         </h1>

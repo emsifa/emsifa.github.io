@@ -8,7 +8,7 @@
           'text-gray-400': !light,
           'border-gray-800': !light,
         }">
-          Artikel <span class="text-sm" style="opacity:.5">/ Halaman {{ $page.posts.pageInfo.currentPage }}</span>
+          Artikel <span class="text-sm" style="opacity:.75">/ Halaman {{ $page.posts.pageInfo.currentPage }}</span>
         </h4>
         <post-item v-for="edge in $page.posts.edges" :key="edge.node.id" :post="edge.node" :light="light" />
       </container>

@@ -48,7 +48,7 @@
           Media Sosial
         </h4>
         <div class="">
-          <a :href="link.url" target="_blank" v-for="link in socialMedias" :key="link.label" class="
+          <a :href="link.url" rel="noopener" target="_blank" v-for="link in socialMedias" :key="link.label" class="
             inline-block
             rounded
             text-sm
