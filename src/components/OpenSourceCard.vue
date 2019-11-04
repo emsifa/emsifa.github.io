@@ -12,7 +12,7 @@
         <a :href="data.demoUrl" rel="noopener" target="_blank">{{ data.title }}</a>
       </h4>
       <p class="text-base" :class="{
-        'text-gray-600': light,
+        'text-gray-700': light,
         'text-gray-500': !light,
       }">{{ data.description }}</p>
 

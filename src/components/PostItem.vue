@@ -20,7 +20,7 @@
           <time :datetime="post.datetime"
             class="text-xs mb-2 uppercase"
             :class="{
-              'text-gray-600': light,
+              'text-gray-700': light,
               'text-gray-500': !light,
             }">
             {{ timeago(post.datetime) }} LALU

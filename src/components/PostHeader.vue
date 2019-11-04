@@ -31,7 +31,7 @@
             transition-bg
           "
           :class="{
-            'text-gray-600 bg-gray-200 hover:text-white hover:bg-gray-700': light,
+            'text-gray-700 bg-gray-200 hover:text-white hover:bg-gray-700': light,
             'text-gray-400 bg-gray-800 hover:text-gray-800 hover:bg-gray-300': !light,
           }">
             {{ tag.title }}

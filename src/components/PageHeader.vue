@@ -18,8 +18,8 @@
                   }">
                   Webnya Muhammad Syifa
                 </h1>
-                <h2 class="text-sm text-gray-600" :class="{
-                    'text-gray-600': light,
+                <h2 class="text-sm text-gray-700" :class="{
+                    'text-gray-700': light,
                     'text-gray-400': !light,
                   }">
                   {{ subtitle }}

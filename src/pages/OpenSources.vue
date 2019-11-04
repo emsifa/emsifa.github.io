@@ -3,7 +3,7 @@
     <main>
       <container class="select-none">
         <h4 class="mb-4 font-semibold text-2xl pl-4" :class="{
-          'text-gray-600': light,
+          'text-gray-700': light,
           'text-gray-400': !light,
         }">
           Open Source
@@ -14,7 +14,7 @@
         </h4>
 
         <div class="filters p-4 pb-2 border-b border-t mb-4" :class="{
-          'text-gray-600': light,
+          'text-gray-700': light,
           'border-gray-200': light,
           'text-gray-400': !light,
           'border-gray-800': !light,
@@ -37,7 +37,7 @@
           :class="{
             'bg-gray-200 hover:text-white hover:bg-gray-700': light,
             'bg-gray-800 hover:text-gray-800 hover:bg-gray-300': !light,
-            'text-gray-600': !isActive(tag) && light,
+            'text-gray-700': !isActive(tag) && light,
             'text-gray-400': !isActive(tag) && !light,
             'bg-blue-500': isActive(tag),
             'text-white': isActive(tag)

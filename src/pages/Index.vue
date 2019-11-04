@@ -4,7 +4,7 @@
       <!-- open source container -->
       <container class="select-none mb-8">
         <h4 class="mb-4 font-semibold text-2xl pl-4 pb-4 border-b" :class="{
-          'text-gray-600': light,
+          'text-gray-700': light,
           'border-gray-200': light,
           'text-gray-400': !light,
           'border-gray-800': !light,
@@ -24,7 +24,7 @@
       <!-- article container -->
       <container class="select-none mb-8">
         <h4 class="mb-4 font-semibold text-2xl pl-4 pb-4 border-b" :class="{
-          'text-gray-600': light,
+          'text-gray-700': light,
           'border-gray-200': light,
           'text-gray-400': !light,
           'border-gray-800': !light,
@@ -40,7 +40,7 @@
       <!-- social media container -->
       <container class="select-none">
         <h4 class="mb-4 font-semibold text-2xl pl-4 pb-4 border-b" :class="{
-          'text-gray-600': light,
+          'text-gray-700': light,
           'border-gray-200': light,
           'text-gray-400': !light,
           'border-gray-800': !light,

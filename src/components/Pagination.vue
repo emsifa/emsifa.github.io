@@ -7,7 +7,7 @@
             &larr; Previous
           </g-link>
         </li>
-        <li class="hidden md:flex w-auto text-center text-gray-600 text-base">{{ info.currentPage }} / {{ info.totalPages }}</li>
+        <li class="hidden md:flex w-auto text-center text-gray-700 text-base">{{ info.currentPage }} / {{ info.totalPages }}</li>
         <li class="lg:w-1/5 text-right">
           <g-link :to="nextPage(info.currentPage,info.totalPages)" :class="{'pointer-events-none opacity-0': info.currentPage == info.totalPages}" class="text-gray-700 focus:outline-none hover:text-gray-500 px-4 py-2" :rel="info.currentPage == info.totalPages ? 'nofollow' : 'next'">
             Next &rarr;
