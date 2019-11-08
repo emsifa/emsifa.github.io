@@ -26,19 +26,23 @@ sehingga kita dapat melakukan export jutaan data tanpa harus menampung jutaan da
 Kenapa menggunakan CSV, kenapa bukan file excel aja?
 
 Setahu saya, koreksi kalau salah loh ya. Saat ekspor data menjadi file excel, yang terjadi adalah
-(jutaan) data kamu akan dibuffer/ditampung kedalam konten file excel (berupa string atau binary string), setelah selesai, kemudian dilakukan encoding, styling (buat border, warnai teks, merge-cells, dsb), sampai akhirnya _buntelan_ file excel kamu siap,
-barulah file excel kamu disajikan ke browser.
+(jutaan) data kamu akan dibuffer/ditampung kedalam konten file excel (berupa string atau binary string), setelah selesai, kemudian ada proses encoding, styling (membuat border, warnai teks, merge-cells, dsb), sampai akhirnya _buntelan_ file excel kamu siap,
+barulah file excel kamu "disajikan" ke browser.
 
-Saat "memasak" (baca: mengolah) file excel tersebut, semakin banyak "porsi" (baca: baris) yang ingin dimasak, semakin besar pula "wajan" (baca: memori) yang harus digunakan untuk "memasak" file itu. Kalau "wajan"-nya tidak cukup besar, aplikasi kamu akan crash, karena memori limit.
+Saat "memasak" (baca: mengolah) file excel tersebut, semakin banyak "porsi" (baca: baris) yang ingin dimasak, semakin besar pula "wajan" (baca: memori) yang harus digunakan untuk "memasak" file itu. Kalau "wajan"-nya tidak cukup besar, aplikasi kamu akan error, karena memorinya tidak mencukupi.
 
-Berbeda dengan CSV, file CSV hanya berisi teks sederhana yang setiap barisnya mewakili baris data, dimana pada setiap baris terdapat ";" atau "," sebagai pemisah dari masing-masing kolom. Kekurangannya, pada file CSV kita tidak bisa melakukan styling, formula, dsb seperti yang dapat didukung oleh file excel. Tapi dengan kekurangan tersebut, kita dapat melakukan streaming data baris-per-baris, sehingga kita server tidak perlu menampung beban memori dari seluruh data di dalam file CSV kita.
+Berbeda dengan CSV, file CSV hanya berisi teks biasa (_plain text_) yang setiap barisnya mewakili baris data, dimana pada setiap baris terdapat karakter ";" atau "," sebagai pemisah dari masing-masing kolom. Kekurangannya, pada file CSV kita tidak bisa melakukan styling, formula, dsb seperti yang didukung oleh format excel. Tapi dengan kekurangan tersebut, kita dapat melakukan streaming konten CSV baris-per-baris, dari server dialirkan ke browser, dari browser ditulis ke storage device user. Singkatnya: server kita tidak perlu menampung beban memori dari seluruh data di dalam file CSV yang hendak diekspor.
 
 #### Kenapa Lazy Collection?
 
-Kalau kamu pernah menonton video yang saya singgung diatas, kamu akan tahu peran Lazy Collection disini.
+Kalau kamu pernah menonton video yang saya sebutkan diatas, kamu akan tahu peran Lazy Collection disini.
 Singkatnya, dengan Lazy Collection kita tidak perlu menampung data yang ingin kita ekspor,
 sehingga yang terjadi adalah data dari hasil query akan difetch satu-per-satu dari DBMS, untuk kemudian data tersebut
-ditulis kedalam stream file csv yang diterima web browser.
+ditulis kedalam stream file csv yang akan diterima dan diproses langsung oleh web browser.
+
+Secara keseluruhan, gambaran prosesnya nanti akan jadi (kurang-lebih) seperti ini:
+
+![Alur download stream csv](/images/posts/export-jutaan-data-ke-csv-dengan-aman-di-laravel__1.png)
 
 ## Bagaimana Caranya?
 
@@ -69,7 +73,7 @@ Kemudian, kita menambahkan route seperti ini di `routes/web.php`:
 Route::get('log-activities/export', 'LogActivityController@export');
 ```
 
-Setelah itu, untuk di controllernya kamu dapat menuliskan seperti ini:
+Setelah itu, pada controllernya kamu dapat menuliskan seperti ini:
 
 ```php
 <?php
@@ -93,7 +97,7 @@ class LogActivityController extends Controller
         // 2. Set header untuk streaming file CSV
         $filename = "log-activities.csv";
         header("Content-type: text/csv");
-        header("Content-Disposition: 'attachment; filename='{$filename}'");
+        header("Content-Disposition: 'attachment; filename={$filename}'");
 
         // 3. Stream file CSV
         $csv = fopen("php://output", "w+");
@@ -101,7 +105,13 @@ class LogActivityController extends Controller
         fputscsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
         // 3.b. Tulis baris setiap log
         foreach ($logs as $log) {
-            fputscsv($csv, [$log->time, $log->user_id, $log->message, $log->ip_address, $log->user_agent]);
+            fputscsv($csv, [
+                $log->time,
+                $log->user_id,
+                $log->message,
+                $log->ip_address,
+                $log->user_agent
+            ]);
         }
         // 3.c. Tutup file
         fclose($csv);
@@ -142,7 +152,13 @@ class LogActivityController extends Controller
             fputscsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
 
             foreach ($logs as $log) {
-                fputscsv($csv, [$log->time, $log->user_id, $log->message, $log->ip_address, $log->user_agent]);
+                fputscsv($csv, [
+                    $log->time,
+                    $log->user_id,
+                    $log->message,
+                    $log->ip_address,
+                    $log->user_agent
+                ]);
             }
 
             fclose($csv);
