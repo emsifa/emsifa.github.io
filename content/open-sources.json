@@ -21,7 +21,16 @@
       "thumbnail": "/images/open-sources/api-wilayah.png",
       "demoUrl": "https://emsifa.github.io/api-wilayah-indonesia/",
       "repoUrl": "https://www.github.com/emsifa/api-wilayah-indonesia/",
-      "techStack": ["PHP", "Vue", "Tailwindcss"]
+      "techStack": ["PHP", "Vue", "Bootstrap 4"]
+    },
+    {
+      "slug": "bytefmt",
+      "title": "ByteFmt",
+      "description": "Rust utility untuk parsing byte string dan sebaliknya",
+      "thumbnail": "/images/open-sources/bytefmt.png",
+      "demoUrl": "https://crates.io/crates/bytefmt/",
+      "repoUrl": "https://github.com/emsifa/bytefmt",
+      "techStack": ["Rust"]
     },
     {
       "slug": "rakit-validation",
