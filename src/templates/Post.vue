@@ -104,7 +104,7 @@ export default {
       let siteUrl = this.config.siteUrl
       let postSlug = this.$page.post.slug
 
-      return postSlug ? `${siteUrl}/${postSlug}/` : `${siteUrl}/${slugify(this.$page.post.title)}/`
+      return postSlug ? `${siteUrl}/artikel/${postSlug}/` : `${siteUrl}/artikel/${slugify(this.$page.post.title)}/`
     },
     ogImageUrl () {
       return this.$page.post.cover || `${this.config.siteUrl}/images/bleda-card.png`
