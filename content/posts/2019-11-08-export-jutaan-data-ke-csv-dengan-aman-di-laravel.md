@@ -104,10 +104,10 @@ class LogActivityController extends Controller
         // 3. Stream file CSV
         $csv = fopen("php://output", "w+");
         // 3.a. Tulis table header
-        fputscsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
+        fputcsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
         // 3.b. Tulis baris setiap log
         foreach ($logs as $log) {
-            fputscsv($csv, [
+            fputcsv($csv, [
                 $log->time,
                 $log->user_id,
                 $log->message,
@@ -151,10 +151,10 @@ class LogActivityController extends Controller
         return response()->streamDownload(function() use ($logs) {
             $csv = fopen("php://output", "w+");
 
-            fputscsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
+            fputcsv($csv, ["Time", "User ID", "Message", "IP Address", "User Agent"]);
 
             foreach ($logs as $log) {
-                fputscsv($csv, [
+                fputcsv($csv, [
                     $log->time,
                     $log->user_id,
                     $log->message,
