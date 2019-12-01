@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" class="h-full" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D,%22class%22:%7B%22ssr%22:%22h-full%22%7D%7D">
+  <head>
+    <title>Membuat API Rate Limiting menggunakan Redis pada Express.js </title><meta name="gridsome:hash" content="4db441fac58b959108495e5bbef240c80eacccd8"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.9"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" name="theme-color" content="#1a202c"><meta data-vue-tag="ssr" data-key="description" name="description" content="Membatasi jumlah akses API setiap menitnya menggunakan Redis pada Express.js."><meta data-vue-tag="ssr" property="og:type" content="article"><meta data-vue-tag="ssr" property="og:title" content="Membuat API Rate Limiting menggunakan Redis pada Express.js"><meta data-vue-tag="ssr" property="og:description" content="Membatasi jumlah akses API setiap menitnya menggunakan Redis pada Express.js."><meta data-vue-tag="ssr" property="og:url" content="https://www.emsifa.com/artikel/membuat-api-rate-limiting-redis-express/"><meta data-vue-tag="ssr" property="article:published_time" content="undefined"><meta data-vue-tag="ssr" property="og:image" content="https://www.emsifa.com/images/posts/membuat-api-rate-limiting-redis-express.png"><meta data-vue-tag="ssr" name="twitter:card" content="summary_large_image"><meta data-vue-tag="ssr" name="twitter:title" content="Membuat API Rate Limiting menggunakan Redis pada Express.js"><meta data-vue-tag="ssr" name="twitter:description" content="Membatasi jumlah akses API setiap menitnya menggunakan Redis pada Express.js."><meta data-vue-tag="ssr" name="twitter:site" content="@cossssmin"><meta data-vue-tag="ssr" name="twitter:creator" content="@cossssmin"><meta data-vue-tag="ssr" name="twitter:image" content="/images/posts/membuat-api-rate-limiting-redis-express.png"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.74da076.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.74da076.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="48x48" href="/assets/static/favicon.f8b3168.74da076.png"><link rel="preload" href="/assets/css/9.styles.8df4e068.css" as="style"><link rel="preload" href="/assets/js/app.08bd17a6.js" as="script"><link rel="preload" href="/assets/js/page--src-templates-post-vue.dd4177e9.js" as="script"><link rel="prefetch" href="/assets/js/11.51917c87.js"><link rel="prefetch" href="/assets/js/page--src-pages-404-vue.5321e96a.js"><link rel="prefetch" href="/assets/js/page--src-pages-artikel-vue.10a085a8.js"><link rel="prefetch" href="/assets/js/page--src-pages-index-vue.e698f6a8.js"><link rel="prefetch" href="/assets/js/page--src-pages-open-sources-vue.b85b6c8d.js"><link rel="prefetch" href="/assets/js/page--src-templates-author-vue.b07c89b1.js"><link rel="prefetch" href="/assets/js/page--src-templates-tag-vue.b4ed1b11.js"><link rel="prefetch" href="/assets/js/vendors~page--src-pages-artikel-vue~page--src-pages-index-vue~page--src-pages-open-sources-vue~page-~f457dff2.8b74eeb6.js"><link rel="prefetch" href="/assets/js/vendors~page--src-templates-post-vue.330bb624.js"><link rel="stylesheet" href="/assets/css/9.styles.8df4e068.css"><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body class="antialiased" data-vue-tag="%7B%22class%22:%7B%22ssr%22:%22antialiased%22%7D%7D">
+    <div data-server-rendered="true" id="app" class="min-h-screen light"><header class="select-none mb-5 shadow-lg border-gray-200" data-v-1b58b763><div class="container max-w-3xl px-5 md:px-0 py-5" data-v-1b58b763><div class="flex" data-v-1b58b763><div class="w-10/12" data-v-1b58b763><a href="/" class="text-black w-full inline-block active" data-v-1b58b763><div class="flex" data-v-1b58b763><div class="w-auto" data-v-1b58b763><img src="/images/logo.svg" alt="Logo" class="inline" data-v-1b58b763></div><div class="w-auto ml-3 pt-2" data-v-1b58b763><h1 class="text-normal font-semibold text-gray-700" data-v-1b58b763>
+                Webnya Muhammad Syifa
+              </h1><h2 class="text-sm text-gray-700 text-gray-700" data-v-1b58b763>
+                Ini halaman artikel
+              </h2></div></div></a></div><div class="w-2/12 text-right pt-3" data-v-1b58b763><button title="Gelapin" class="
+            p-2
+            rounded-full
+            bg-transparent
+            transition-all
+            focus:outline-none
+           hover:bg-yellow-200" data-v-1b58b763><img src="/images/sun.svg" alt="Sun" style="width:30px;height:30px;" data-v-1b58b763><!----></button></div></div></div></header><main><header><div class="container max-w-3xl px-5 md:px-0"><div class="mx-auto pb-5 border-b border-gray-200 text-gray-700"><img alt="Membuat API Rate Limiting menggunakan Redis pada Express.js" src="/images/posts/membuat-api-rate-limiting-redis-express.png" class="g-image"><h1 class="text-3xl sm:text-3xl leading-tight font-sans font-semibold mb-3 mt-5">
+        Membuat API Rate Limiting menggunakan Redis pada Express.js
+      </h1><p class="text-sm"><time datetime="2019-12-01 11:00:00" class="capitalize">01 Desember 2019</time></p><p class="text-xs mt-2 uppercase"></p><div class="tags mt-5"><a href="/tag/Express.js/" class="
+          inline-block
+          font-sans
+          font-semibold
+          text-xs
+          sm:text-sm
+          px-2
+          py-1
+          mr-2
+          mb-2
+          rounded
+          transition-color
+          transition-bg
+         text-gray-700 bg-gray-200 hover:text-white hover:bg-gray-700">
+          Express.js
+        </a><a href="/tag/Node/" class="
+          inline-block
+          font-sans
+          font-semibold
+          text-xs
+          sm:text-sm
+          px-2
+          py-1
+          mr-2
+          mb-2
+          rounded
+          transition-color
+          transition-bg
+         text-gray-700 bg-gray-200 hover:text-white hover:bg-gray-700">
+          Node
+        </a><a href="/tag/Redis/" class="
+          inline-block
+          font-sans
+          font-semibold
+          text-xs
+          sm:text-sm
+          px-2
+          py-1
+          mr-2
+          mb-2
+          rounded
+          transition-color
+          transition-bg
+         text-gray-700 bg-gray-200 hover:text-white hover:bg-gray-700">
+          Redis
+        </a></div></div></div></header><div class="container max-w-3xl px-5 md:px-0"><article class="pt-5 border-grey-200"><div class="markdown text-lg leading-normal text-gray-700 pb-10"><p>Beberapa waktu yang lalu, saya sempat menuliskan catatan kursus Redis saya di <a href="university.redislabs.com/">Redis University</a>. Tapi tidak saya lanjutkan karena <del>materi yang dibahas antar kelas yang satu dengan kelas yang lainnya banyak yang mirip-mirip</del> saya malas. Sebagai gantinya, saya akan menuliskan beberapa artikel Redis yang sekiranya banyak dibutuhkan oleh industri. Salah satunya adalah Rate Limiting ini.</p>
+<p>Rate Limiting adalah proses membatasi jumlah request user/client pada resource tertentu.
+Sebagai contoh disini kita akan coba membatasi akses user terhadap API yang dibuat menggunakan Express.js pada setiap menitnya.</p>
+<p>Sebelum mencoba ini, pastikan kamu sudah menginstall <strong><a href="https://redis.io/" target="_blank" rel="nofollow noopener noreferrer">Redis</a></strong> dan <strong><a href="https://nodejs.org/en/" target="_blank" rel="nofollow noopener noreferrer">Node.js</a></strong>. Pada tutorial ini saya menggunakan Node.js versi 10.15.3 dan Redis versi 5.0.5.
+Buat kamu yang pakai Windows seperti saya, kamu dapat menjalankan Redis menggunakan Docker seperti yang saya lakukan saat membuat artikel ini.</p>
+<p>Kalau Redis dan Node.js-nya sudah siap, sebelum masuk ke tahap coding, silahkan jalankan terlebih dahulu redis-server kamu.</p>
+<h2 id="persiapan"><a href="#persiapan" aria-hidden="true"><span class="icon icon-link"></span></a>Persiapan</h2>
+<p>Saya akan <em>to-the-point</em> aja disini, kalau bingung silahkan tanya saya via <a href="https://www.facebook.com/em.sifa" target="_blank" rel="nofollow noopener noreferrer">facebook</a>.</p>
+<ul>
+<li>Buka terminal atau cmd (selanjutnya saya akan sebut terminal aja).</li>
+<li>Buat direktori baru: <code>mkdir express-rate-limiting</code></li>
+<li>Masuk ke direktori tersebut: <code>cd express-rate-limiting</code></li>
+<li>Inisiasi file package.json: <code>npm init -y</code></li>
+<li>Install package yang dibutuhkan: <code>npm i -S express redis bluebird date-fns</code></li>
+</ul>
+<p>Berikut sedikit penjelasan tentang package yang kita install diatas:</p>
+<ul>
+<li><code>express</code>: untuk membuat Web API.</li>
+<li><code>redis</code>: untuk koneksi dan mengirim perintah ke redis server.</li>
+<li><code>bluebird</code>: untuk membuat versi Promise pada setiap API/function di package redis.</li>
+<li><code>date-fns</code>: untuk format tanggal.</li>
+</ul>
+<h2 id="konsep"><a href="#konsep" aria-hidden="true"><span class="icon icon-link"></span></a>Konsep</h2>
+<p>Goal pada aplikasi yang akan kita buat disini adalah untuk
+membatasi akses ke endpoint <code>GET /hello</code> supaya setiap IP
+hanya dapat mengakses sebanyak 10 kali saja setiap menitnya.</p>
+<p>Untuk mencapai goal tersebut, kita akan memanfaatkan 3 perintah redis, yaitu:</p>
+<ul>
+<li><code>GET</code>: untuk mengambil nilai dari key.</li>
+<li><code>INCR</code>: untuk increment nilai numerik dari key.</li>
+<li><code>EXPIRE</code>: untuk set expiration key supaya nilai dari keynya otomatis hilang dalam kurun waktu tertentu, sehingga tidak membebani memori berkepanjangan. Istilah kerennya <em>time-based retention</em>.</li>
+</ul>
+<p>Pemanfaatannya adalah sebagai berikut:</p>
+<ul>
+<li>Ambil jumlah akses (nilai numerik) dari key menggunakan <code>GET</code>.</li>
+<li>
+<p>Jika jumlah akses melebihi batas (10):</p>
+<ul>
+<li>Kirim response error 429 (Too Many Requests).</li>
+</ul>
+</li>
+<li>
+<p>Jika jumlah akses dibawah atau sama dengan batas (10):</p>
+<ul>
+<li>Increment nilai dari key menggunakan <code>INCR</code>.</li>
+<li>Set expire dari key menggunakan <code>EXPIRE</code>.</li>
+<li>Kirim response sukses.</li>
+</ul>
+</li>
+</ul>
+<p>Supaya <u>setiap IP</u> hanya boleh mengakses <u>path tertentu</u> pada <u>setiap menitnya</u>.
+Kita akan membuat keynya dengan format seperti ini:</p>
+<code class="shiki" style="background: #2e3440; color: #d8dee9">{IP}:{PATH}:{TAHUN}{BULAN}{TANGGAL}:{JAM}{MENIT}</code>
+<p>Contoh jika IP <code>1.2.3.4</code> mengakses <code>"/hello"</code> pada <code>2019-12-01 10:15:25</code>. Keynya akan seperti ini:</p>
+<code class="shiki" style="background: #2e3440; color: #d8dee9">1.2.3.4:/hello:20191201:1015</code>
+<p>Sebagai gambaran, berikut adalah table skenario request yang dijalankan oleh <code>1.2.3.4</code> ke path <code>/hello</code> pada waktu tertentu:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>No.</strong></th>
+<th align="center"><strong>Waktu</strong></th>
+<th align="center"><strong>Key</strong></th>
+<th align="center"><strong>Value</strong></th>
+<th align="center"><strong>Hasil</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1</td>
+<td align="center">2019-12-01 10:01:00</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">1</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">2019-12-01 10:01:01</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">2</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2019-12-01 10:01:05</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">3</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">2019-12-01 10:01:12</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">4</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">2019-12-01 10:01:16</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">5</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">2019-12-01 10:01:18</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">6</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">2019-12-01 10:01:19</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">7</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">2019-12-01 10:01:21</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">8</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">2019-12-01 10:01:25</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">9</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">2019-12-01 10:01:30</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">10</td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">2019-12-01 10:01:36</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">10</td>
+<td align="center"><strong class="text-red-500">error</strong></td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">2019-12-01 10:01:40</td>
+<td align="center">1.2.3.4:/hello:20191201:1001</td>
+<td align="center">10</td>
+<td align="center"><strong class="text-red-500">error</strong></td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="center">2019-12-01 10:<strong class="bg-gray-200 text-gray-800">02</strong>:05</td>
+<td align="center">1.2.3.4:/hello:20191201:10<strong class="bg-gray-200 text-gray-800">02</strong></td>
+<td align="center"><strong class="bg-gray-200 text-gray-800">1</strong></td>
+<td align="center"><strong class="text-green-500">sukses</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="implementasi"><a href="#implementasi" aria-hidden="true"><span class="icon icon-link"></span></a>Implementasi</h2>
+<p>Sekarang saatnya masuk ke <em>text editor</em> atau <em>IDE</em> favorit kamu.
+Pertama-tama silahkan buat file <code>app.js</code> pada direktori yang sama dengan file <code>package.json</code>.
+Lalu kita akan masuk ke tahap berikutnya.</p>
+<h4 id="1-import-package"><a href="#1-import-package" aria-hidden="true"><span class="icon icon-link"></span></a>1. Import Package</h4>
+<p>Sebelum menuliskan <em>app logic</em>-nya, mari kita import dulu <em>package</em> yang sudah kita install sebelumnya.</p>
+<p>Isikan kode seperti dibawah ini pada file <code>app.js</code> kamu:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span><span style="color: #FFFFFF"> format </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'date-fns'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> express </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'express'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> bluebird </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'bluebird'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> redis </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'redis'</span><span style="color: #FFFFFF">)</span></code></pre>
+<h4 id="2-promisify"><a href="#2-promisify" aria-hidden="true"><span class="icon icon-link"></span></a>2. Promisify</h4>
+<p>Pada tahap ini kita akan menggunakan bluebird untuk menambahkan <em>Promise-based</em> function pada setiap API/function yang tersedia pada <em>package</em> redis.</p>
+<p>Silahkan tambahkan baris berikut setelah <em>require-require</em> sebelumnya.</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #FFFFFF">bluebird</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">promisifyAll</span><span style="color: #FFFFFF">(redis)</span></code></pre>
+<blockquote>
+<p>Promise-based function berfungsi untuk menghindari <a href="http://callbackhell.com/" target="_blank" rel="nofollow noopener noreferrer">callback-hell</a></p>
+</blockquote>
+<h4 id="3-membuat-dan-menghubungkan-redis-client"><a href="#3-membuat-dan-menghubungkan-redis-client" aria-hidden="true"><span class="icon icon-link"></span></a>3. Membuat dan Menghubungkan Redis Client</h4>
+<p>Selanjutnya, untuk dapat mengirimkan perintah ke redis-server, kita perlu membuat dan menghubungkan redis client terlebih dahulu.</p>
+<p>Tambahkan baris berikut dibawah tahap sebelumnya:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> client </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> redis</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">createClient</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  port</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">6379</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+<p>Kalau sudah, kamu dapat test koneksi menggunakan terminal dengan perintah:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #FFFFFF">node app</span></code></pre>
+<p>Tunggu sebentar, kalau muncul error <code>ECONNREFUSED</code>, kemungkinannya:</p>
+<ul>
+<li>Redis server belum running</li>
+<li>Hostnya salah</li>
+<li>Portnya salah</li>
+</ul>
+<p>Silahkan cek dan sesuaikan lagi.</p>
+<h4 id="4-inisiasi-express-app"><a href="#4-inisiasi-express-app" aria-hidden="true"><span class="icon icon-link"></span></a>4. Inisiasi Express App</h4>
+<p>Setelah koneksi redis client berhasil, saatnya kita membuat aplikasi webnya.</p>
+<p>Lanjut dibawah kode sebelumnya. Ketikkan kode berikut:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> port </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">3000</span><span style="color: #FFFFFF">     </span><span style="color: #888">// definisikan port</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> app </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">express</span><span style="color: #FFFFFF">() </span><span style="color: #888">// inisiasi web app</span>
+
+<span style="color: #888">// Daftarkan endpoint "GET /hello"</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'Hello world'</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #888">// Jalankan web app</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">listen</span><span style="color: #FFFFFF">(port</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">()</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">console</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">log</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">`App listening on port </span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">port</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">!`</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+<hr>
+<details><summary>Kode keseluruhan pada tahap ini:</summary>
+<p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span><span style="color: #FFFFFF"> format </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'date-fns'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> express </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'express'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> bluebird </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'bluebird'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> redis </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'redis'</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #FFFFFF">bluebird</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">promisifyAll</span><span style="color: #FFFFFF">(redis)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> client </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> redis</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">createClient</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  port</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">6379</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> port </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">3000</span><span style="color: #FFFFFF">     </span><span style="color: #888">// definisikan port</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> app </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">express</span><span style="color: #FFFFFF">() </span><span style="color: #888">// inisiasi web app</span>
+
+<span style="color: #888">// Daftarkan endpoint "GET /hello"</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'Hello world'</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #888">// Jalankan web app</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">listen</span><span style="color: #FFFFFF">(port</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">()</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">console</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">log</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">`App listening on port </span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">port</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">!`</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+</p>
+</details>
+<hr>
+<h4 id="5-menerapkan-rate-limiting-pada-endpoint-get-hello"><a href="#5-menerapkan-rate-limiting-pada-endpoint-get-hello" aria-hidden="true"><span class="icon icon-link"></span></a>5. Menerapkan Rate Limiting pada Endpoint "GET /hello"</h4>
+<p>Pada tahap ini kita akan memanfaatkan redis client untuk membatasi akses ke endpoint <code>GET /hello</code>
+supaya setiap IP hanya dapat mengakses sebanyak 10 kali saja pada setiap menitnya.</p>
+<p>Silahkan ubah <code>app.get('/hello', ...)</code> pada tahap sebelumnya menjadi seperti ini (pahami penjelasan baris-per-baris):</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #FF0078">async</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> limit </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">10</span><span style="color: #FFFFFF">      </span><span style="color: #888">// limit akses setiap menitnya</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> path </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'/hello'</span><span style="color: #FFFFFF"> </span><span style="color: #888">// path dari API</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> time </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">format</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">new</span><span style="color: #FFFFFF"> Date()</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'yyyyMMdd:HHmm'</span><span style="color: #FFFFFF">) </span><span style="color: #888">// waktu untuk dijadikan key  </span>
+<span style="color: #FFFFFF">  </span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Set redis key yang digunakan untuk menyimpan </span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// jumlah akses oleh IP: req.ip, untuk path: path, pada menit: time</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> key </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">.</span><span style="color: #FFFFFF">ip</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">path</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">time</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">`</span><span style="color: #FFFFFF"> </span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Ambil jumlah akses saat ini</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> count </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">parseInt</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">getAsync</span><span style="color: #FFFFFF">(key))</span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Kalau jumlah akses melebihi limit ...</span>
+<span style="color: #FFFFFF">  </span><span style="color: #FF0078">if</span><span style="color: #FFFFFF"> (count </span><span style="color: #EFEFEF">&gt;</span><span style="color: #FFFFFF"> limit) </span><span style="color: #EFEFEF">{</span>
+<span style="color: #EFEFEF">      </span><span style="color: #888">// ... kirim response error 429</span>
+<span style="color: #FFFFFF">    </span><span style="color: #FF0078">return</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">status</span><span style="color: #FFFFFF">(</span><span style="color: #2BA8FF">429</span><span style="color: #FFFFFF">)</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">        error</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">      message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`API rate limit exceeded`</span>
+<span style="color: #FFFFFF">    </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Jalankan transaction untuk:</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> trx </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">multi</span><span style="color: #FFFFFF">()</span>
+<span style="color: #FFFFFF">  trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">incr</span><span style="color: #FFFFFF">(key)         </span><span style="color: #888">// 1. increment key</span>
+<span style="color: #FFFFFF">  trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">expire</span><span style="color: #FFFFFF">(key</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">60</span><span style="color: #FFFFFF">)   </span><span style="color: #888">// 2. set expire key 60 detik</span>
+<span style="color: #FFFFFF">  </span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">execAsync</span><span style="color: #FFFFFF">()</span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Kirim response yang seharusnya</span>
+<span style="color: #FFFFFF">  res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">      message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'Hello world'</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+<p>Hmm, panjang juga ya. Kalau belum paham, baca ulang lagi aja sampai paham.</p>
+<p>Pada saat mengeset variable <code>key</code>, kamu dapat sesuaikan sesuai kebutuhan kamu.
+Misal untuk IP diatas dapat kamu ganti dengan token.
+Atau misal kamu mau batasinya per jam, kamu dapat ubah format<code>time</code>-nya menjadi <code>yyyyMMdd:HH</code> aja.
+Atau misalkan lagi kamu mau batasi secara global, bukan hanya pada path <code>/hello</code> aja,
+kamu dapat hilangkan informasi <code>path</code> pada <code>key</code>-nya.</p>
+<hr>
+<details><summary>Kode keseluruhan pada tahap ini:</summary>
+<p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span><span style="color: #FFFFFF"> format </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'date-fns'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> express </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'express'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> bluebird </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'bluebird'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> redis </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'redis'</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #FFFFFF">bluebird</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">promisifyAll</span><span style="color: #FFFFFF">(redis)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> client </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> redis</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">createClient</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  port</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">6379</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> port </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">3000</span><span style="color: #FFFFFF">     </span><span style="color: #888">// definisikan port</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> app </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">express</span><span style="color: #FFFFFF">() </span><span style="color: #888">// inisiasi web app</span>
+
+<span style="color: #888">// Daftarkan endpoint "GET /hello"</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #FF0078">async</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> limit </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">10</span><span style="color: #FFFFFF">      </span><span style="color: #888">// limit akses setiap menitnya</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> path </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'/hello'</span><span style="color: #FFFFFF"> </span><span style="color: #888">// path dari API</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> time </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">format</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">new</span><span style="color: #FFFFFF"> Date()</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'yyyyMMdd:HHmm'</span><span style="color: #FFFFFF">) </span><span style="color: #888">// waktu untuk dijadikan key  </span>
+<span style="color: #FFFFFF">  </span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Set redis key yang digunakan untuk menyimpan </span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// jumlah akses oleh IP: req.ip, untuk path: path, pada menit: time</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> key </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">.</span><span style="color: #FFFFFF">ip</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">path</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">time</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">`</span><span style="color: #FFFFFF"> </span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Ambil jumlah akses saat ini</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> count </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">parseInt</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">getAsync</span><span style="color: #FFFFFF">(key))</span>
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Kalau jumlah akses melebihi limit ...</span>
+<span style="color: #FFFFFF">  </span><span style="color: #FF0078">if</span><span style="color: #FFFFFF"> (count </span><span style="color: #EFEFEF">&gt;</span><span style="color: #FFFFFF"> limit) </span><span style="color: #EFEFEF">{</span>
+<span style="color: #EFEFEF">    </span><span style="color: #888">// ... kirim response error 429</span>
+<span style="color: #FFFFFF">    </span><span style="color: #FF0078">return</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">status</span><span style="color: #FFFFFF">(</span><span style="color: #2BA8FF">429</span><span style="color: #FFFFFF">)</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">      error</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">      message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`API rate limit exceeded`</span>
+<span style="color: #FFFFFF">    </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Jalankan transaction untuk:</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> trx </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">multi</span><span style="color: #FFFFFF">()</span>
+<span style="color: #FFFFFF">  trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">incr</span><span style="color: #FFFFFF">(key)         </span><span style="color: #888">// 1. increment key</span>
+<span style="color: #FFFFFF">  trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">expire</span><span style="color: #FFFFFF">(key</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">60</span><span style="color: #FFFFFF">)   </span><span style="color: #888">// 2. set expire key 60 detik</span>
+<span style="color: #FFFFFF">  </span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> trx</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">execAsync</span><span style="color: #FFFFFF">()</span>
+
+<span style="color: #EFEFEF">  </span><span style="color: #888">// Kirim response yang seharusnya</span>
+<span style="color: #FFFFFF">  res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'Hello world'</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #888">// Jalankan web app</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">listen</span><span style="color: #FFFFFF">(port</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">()</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">console</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">log</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">`App listening on port </span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">port</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">!`</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+</p>
+</details>
+<hr>
+<h4 id="6-cobain"><a href="#6-cobain" aria-hidden="true"><span class="icon icon-link"></span></a>6. Cobain</h4>
+<p>Sampai sini, rate limiting kita sudah jadi.
+Silahkan jalankan kembali perintah <code>node app</code> pada terminal.
+Kemudian buka web browser, bukalah URL <code>http://localhost:3000/hello</code>.</p>
+<p>Seharusnya, pada 10 request pertama kamu akan mendapatkan response seperti ini:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">"message"</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #FFF">"Hello World"</span>
+<span style="color: #EFEFEF">}</span></code></pre>
+<p>Sedangkan pada request selanjutnya, kamu akan mendapatkan response seperti ini:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">"error"</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">"message"</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #FFF">"API rate limit exceeded"</span>
+<span style="color: #EFEFEF">}</span></code></pre>
+<p>Lalu coba tunggu 1 menit, kemudian akses <code>/hello</code> lagi. Responsenya akan kembali seperti ini:</p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">"message"</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #FFF">"Hello World"</span>
+<span style="color: #EFEFEF">}</span></code></pre>
+<p>Artinya rate-limiting kita sudah berhasil membatasi 10 kali akses pada setiap menitnya.</p>
+<h2 id="penutup"><a href="#penutup" aria-hidden="true"><span class="icon icon-link"></span></a>Penutup</h2>
+<p>Sampai sini saya harap kamu sudah paham tentang Rate Limiting, serta penerapan Rate Limiting menggunakan Redis (khususnya) pada Express.js. Untuk bahasa dan framework lain, tahapannya kurang/lebih sama.
+Yaitu kamu cukup memanfaatkan perintah <code>get</code>, <code>incr</code> dan <code>expire</code> pada Redis client di bahasa/framework itu.</p>
+<p>Sebagai bonus, dibawah ini saya lampirkan kode middleware dari penerapan Rate Limiting kita diatas.
+Dengan middleware ini, kamu dapat menerapkan rate-limiting ke berbagai endpoint cukup dengan 1 baris pemanggilan fungsi middleware ini.</p>
+<hr>
+<details><summary>BONUS</summary>
+<p>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span><span style="color: #FFFFFF"> format </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'date-fns'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> express </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'express'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> bluebird </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'bluebird'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> redis </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">require</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'redis'</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #FFFFFF">bluebird</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">promisifyAll</span><span style="color: #FFFFFF">(redis)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> client </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> redis</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">createClient</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  port</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">6379</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> port </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">3000</span><span style="color: #FFFFFF">     </span><span style="color: #888">// definisikan port</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> app </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">express</span><span style="color: #FFFFFF">() </span><span style="color: #888">// inisiasi web app</span>
+
+<span style="color: #888">// Middleware rate limit per menit</span>
+<span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">rateLimitPerMinute</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">limit</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> path</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #FF0078">return</span><span style="color: #FFFFFF"> </span><span style="color: #FF0078">async</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> next</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> time </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">format</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">new</span><span style="color: #FFFFFF"> Date()</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'yyyyMMdd:HHmm'</span><span style="color: #FFFFFF">)</span>
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> key </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">.</span><span style="color: #FFFFFF">ip</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">path </span><span style="color: #EFEFEF">||</span><span style="color: #FFFFFF"> req</span><span style="color: #EFEFEF">.</span><span style="color: #FFFFFF">path</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">:</span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">time</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">`</span>
+<span style="color: #FFFFFF">    </span>
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> count </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #FAC863">parseInt</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">getAsync</span><span style="color: #FFFFFF">(key))</span>
+<span style="color: #FFFFFF">    </span><span style="color: #FF0078">if</span><span style="color: #FFFFFF"> (count </span><span style="color: #EFEFEF">&gt;</span><span style="color: #FFFFFF"> limit) </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">      </span><span style="color: #FF0078">return</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">status</span><span style="color: #FFFFFF">(</span><span style="color: #2BA8FF">429</span><span style="color: #FFFFFF">)</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">        error</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">        message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`API rate limit exceeded`</span>
+<span style="color: #FFFFFF">      </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #FFFFFF">    </span><span style="color: #EFEFEF">}</span>
+<span style="color: #FFFFFF">    </span>
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> mul </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> client</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">multi</span><span style="color: #FFFFFF">()</span>
+<span style="color: #FFFFFF">    mul</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">incr</span><span style="color: #FFFFFF">(key)</span>
+<span style="color: #FFFFFF">    mul</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">expire</span><span style="color: #FFFFFF">(key</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">60</span><span style="color: #FFFFFF">)</span>
+<span style="color: #FFFFFF">    </span><span style="color: #FF0078">await</span><span style="color: #FFFFFF"> mul</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">execAsync</span><span style="color: #FFFFFF">()</span>
+
+<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">next</span><span style="color: #FFFFFF">()</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span>
+<span style="color: #EFEFEF">}</span>
+
+<span style="color: #888">// Daftarkan endpoint "GET /hello"</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">rateLimitPerMinute</span><span style="color: #FFFFFF">(</span><span style="color: #2BA8FF">10</span><span style="color: #FFFFFF">)</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #FF0078">async</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">    message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'Hello world'</span>
+<span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
+
+<span style="color: #888">// Jalankan web app</span>
+<span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">listen</span><span style="color: #FFFFFF">(port</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">()</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">console</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">log</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">`App listening on port </span><span style="color: #EFEFEF">${</span><span style="color: #FFFFFF">port</span><span style="color: #EFEFEF">}</span><span style="color: #50E3C2">!`</span><span style="color: #FFFFFF">)</span>
+<span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span></code></pre>
+</p>
+</details>
+<hr>
+<p>Yaudah sekian dulu artikel kali ini. Semoga bermanfaat. Dadah ~</p>
+</div></article></div><section class="mb-10 py-16 bg-gray-200 text-gray-700"><div class="container max-w-3xl px-5 md:px-0"><div class="flex"><div class="w-10/12 mx-auto"><h4 class="text-2xl font-semibold mb-4 -mt-4">Suka artikel ini?</h4><p class="mb-8">
+          Saya biasanya share artikel-artikel terbaru via
+          <strong class="text-gray-700">facebook</strong> atau <strong class="text-gray-700">fanpage foobarology</strong> saya.
+          Kalau mau dapat updatenya, di add friend/like/follow aja link-link dibawah ini 😃
+        </p><a target="_blank" rel="noopener" href="https://www.facebook.com/em.sifa" class="px-4 py-2 text-lg text-white bg-gray-600 hover:bg-blue-500 rounded">
+          Facebook
+        </a><a target="_blank" rel="noopener" href="https://www.facebook.com/foobarology" class="ml-3 px-4 py-2 text-lg text-white bg-gray-600 hover:bg-blue-500 rounded">
+          Foobarology
+        </a></div></div></div></section><footer class="text-gray-700 text-sm leading-normal flex flex-wrap justify-between mx-auto max-w-3xl px-6 sm:px-12 pb-8 sm:pb-10"><div class="w-full sm:w-1/2 mb-4 sm:mb-0 text-gray-700"><p>© 2019</p></div><div class="w-full sm:w-1/2"><nav><ul class="flex sm:justify-end -mx-2"><li class="px-2"><a href="/" class="text-gray-700 border-b border-transparent hover:border-gray-400 transition-border-color active">Home</a></li><li class="px-2"><a href="/sitemap.xml" class="text-gray-700 border-b border-transparent hover:border-gray-400 transition-border-color">Sitemap</a></li><li class="px-2"><a href="/feed.xml" class="text-gray-700 border-b border-transparent hover:border-gray-400 transition-border-color">RSS Feed</a></li></ul></nav></div></footer></main></div>
+    <script src="/assets/js/app.08bd17a6.js" defer></script><script src="/assets/js/page--src-templates-post-vue.dd4177e9.js" defer></script>
+  </body>
+</html>
