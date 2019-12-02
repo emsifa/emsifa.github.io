@@ -62,19 +62,25 @@
          text-gray-700 bg-gray-200 hover:text-white hover:bg-gray-700">
           Redis
         </a></div></div></div></header><div class="container max-w-3xl px-5 md:px-0"><article class="pt-5 border-grey-200"><div class="markdown text-lg leading-normal text-gray-700 pb-10"><p>Beberapa waktu yang lalu, saya sempat menuliskan catatan kursus Redis saya di <a href="university.redislabs.com/">Redis University</a>. Tapi catatannya tidak saya lanjutkan karena <del>materi yang dibahas antar kelas yang satu dengan kelas yang lainnya banyak yang mirip-mirip</del> saya malas. Sebagai gantinya, saya akan menuliskan beberapa artikel Redis yang sekiranya banyak dibutuhkan oleh industri. Salah satunya adalah Rate Limiting ini.</p>
-<p>Rate Limiting adalah proses membatasi jumlah request user/client pada resource tertentu.
-Sebagai contoh disini kita akan coba membatasi akses user terhadap API yang dibuat menggunakan Express.js pada setiap menitnya.</p>
-<p>Sebelum mencoba ini, pastikan kamu sudah menginstall <strong><a href="https://redis.io/" target="_blank" rel="nofollow noopener noreferrer">Redis</a></strong> dan <strong><a href="https://nodejs.org/en/" target="_blank" rel="nofollow noopener noreferrer">Node.js</a></strong>. Pada tutorial ini saya menggunakan Node.js versi 10.15.3 dan Redis versi 5.0.5.
-Buat kamu yang pakai Windows seperti saya, kamu dapat menjalankan Redis menggunakan Docker seperti yang saya lakukan saat membuat artikel ini.</p>
-<p>Kalau Redis dan Node.js-nya sudah siap, sebelum masuk ke tahap coding, silahkan jalankan terlebih dahulu redis-server kamu.</p>
+<p>Rate Limiting (dalam konteks aplikasi web) adalah proses membatasi jumlah request user/client pada resource tertentu. Sebagai contoh disini kita akan coba membatasi akses user terhadap API yang dibuat menggunakan Express.js pada setiap menitnya.</p>
+<p>Sebelum mencoba ini, pastikan kamu sudah menginstall <strong><a href="https://redis.io/" target="_blank" rel="nofollow noopener noreferrer">Redis</a></strong> dan <strong><a href="https://nodejs.org/en/" target="_blank" rel="nofollow noopener noreferrer">Node.js</a></strong> terlebih dahulu. Pada tutorial ini saya menggunakan Node.js versi 10.15.3 dan Redis versi 5.0.5. Buat kamu yang pakai Windows seperti saya, kamu dapat menjalankan Redis dengan Docker.</p>
+<h2 id="kenapa-redis"><a href="#kenapa-redis" aria-hidden="true"><span class="icon icon-link"></span></a>Kenapa Redis?</h2>
+<p>Untuk membuat Rate Limiting kita bisa saja menggunakan NginX, atau <em>(statefull)</em> <em>session</em>.
+Tapi kenapa Redis?</p>
+<ul>
+<li>Dibandingkan dengan NginX, Rate Limiting menggunakan Redis lebih fleksibel karena kita sendiri yang mengatur logic dari Rate Limiternya.</li>
+<li>Performa Redis yang menggunakan penyimpanan pada RAM lebih cepat ketimbang session yang (biasanya) menggunakan file atau database lain yang menggunakan penyimpanan fisik.</li>
+<li>Redis mendukung banyak platform dan memiliki ketersediaan library di berbagai bahasa pemrograman.</li>
+</ul>
 <h2 id="persiapan"><a href="#persiapan" aria-hidden="true"><span class="icon icon-link"></span></a>Persiapan</h2>
 <p>Saya akan <em>to-the-point</em> aja disini, kalau bingung silahkan tanya saya via <a href="https://www.facebook.com/em.sifa" target="_blank" rel="nofollow noopener noreferrer">facebook</a>.</p>
 <ul>
 <li>Buka terminal atau cmd (selanjutnya saya akan sebut terminal aja).</li>
-<li>Buat direktori baru: <code>mkdir express-rate-limiting</code></li>
-<li>Masuk ke direktori tersebut: <code>cd express-rate-limiting</code></li>
-<li>Inisiasi file package.json: <code>npm init -y</code></li>
-<li>Install package yang dibutuhkan: <code>npm i -S express redis bluebird date-fns</code></li>
+<li>Buat direktori baru: <code>mkdir express-rate-limiting</code>.</li>
+<li>Masuk ke direktori tersebut: <code>cd express-rate-limiting</code>.</li>
+<li>Inisiasi file package.json: <code>npm init -y</code>.</li>
+<li>Install package yang dibutuhkan: <code>npm i -S express redis bluebird date-fns</code>.</li>
+<li>Buka terminal lain, jalankan redis-server.</li>
 </ul>
 <p>Berikut sedikit penjelasan tentang package yang kita install diatas:</p>
 <ul>
