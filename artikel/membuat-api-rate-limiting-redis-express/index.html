@@ -113,9 +113,9 @@ hanya dapat mengakses sebanyak 10 kali saja setiap menitnya.</p>
 </ul>
 <p>Supaya <u>setiap IP</u> hanya boleh mengakses <u>path tertentu</u> pada <u>setiap menitnya</u>.
 Kita akan membuat keynya dengan format seperti ini:</p>
-<code class="shiki" style="background: #2e3440; color: #d8dee9">{IP}:{PATH}:{TAHUN}{BULAN}{TANGGAL}:{JAM}{MENIT}</code>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #EFEFEF">{</span><span style="color: #5392DB">IP</span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">:</span><span style="color: #EFEFEF">{</span><span style="color: #5392DB">PATH</span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">:</span><span style="color: #EFEFEF">{</span><span style="color: #5392DB">TAHUN</span><span style="color: #EFEFEF">}{</span><span style="color: #5392DB">BULAN</span><span style="color: #EFEFEF">}{</span><span style="color: #5392DB">TANGGAL</span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">:</span><span style="color: #EFEFEF">{</span><span style="color: #5392DB">JAM</span><span style="color: #EFEFEF">}{</span><span style="color: #5392DB">MENIT</span><span style="color: #EFEFEF">}</span></code></pre>
 <p>Contoh jika IP <code>1.2.3.4</code> mengakses <code>"/hello"</code> pada <code>2019-12-01 10:15:25</code>. Keynya akan seperti ini:</p>
-<code class="shiki" style="background: #2e3440; color: #d8dee9">1.2.3.4:/hello:20191201:1015</code>
+<pre class="shiki" style="background-color: #191d21"><code><span style="color: #FFFFFF">1.2.3.4:/hello:20191201:1015</span></code></pre>
 <p>Sebagai gambaran, berikut adalah table skenario request yang dijalankan oleh <code>1.2.3.4</code> ke path <code>/hello</code> pada waktu tertentu:</p>
 <div class="table-responsive">
 <table>
@@ -325,7 +325,7 @@ supaya setiap IP hanya dapat mengakses sebanyak 10 kali saja pada setiap menitny
 <span style="color: #FFFFFF">  </span><span style="color: #FF0078">if</span><span style="color: #FFFFFF"> (count </span><span style="color: #EFEFEF">&gt;</span><span style="color: #FFFFFF"> limit) </span><span style="color: #EFEFEF">{</span>
 <span style="color: #EFEFEF">      </span><span style="color: #888">// ... kirim response error 429</span>
 <span style="color: #FFFFFF">    </span><span style="color: #FF0078">return</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">status</span><span style="color: #FFFFFF">(</span><span style="color: #2BA8FF">429</span><span style="color: #FFFFFF">)</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">json</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
-<span style="color: #FFFFFF">        error</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">      error</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">429</span><span style="color: #EFEFEF">,</span>
 <span style="color: #FFFFFF">      message</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">`API rate limit exceeded`</span>
 <span style="color: #FFFFFF">    </span><span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
 <span style="color: #FFFFFF">  </span><span style="color: #EFEFEF">}</span>
@@ -358,7 +358,7 @@ kamu dapat hilangkan informasi <code>path</code> pada <code>key</code>-nya.</p>
 <span style="color: #FFFFFF">bluebird</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">promisifyAll</span><span style="color: #FFFFFF">(redis)</span>
 
 <span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> client </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> redis</span><span style="color: #EFEFEF">.</span><span style="color: #2BA8FF">createClient</span><span style="color: #FFFFFF">(</span><span style="color: #EFEFEF">{</span>
-<span style="color: #FFFFFF">    host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
+<span style="color: #FFFFFF">  host</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'127.0.0.1'</span><span style="color: #EFEFEF">,</span>
 <span style="color: #FFFFFF">  port</span><span style="color: #EFEFEF">:</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">6379</span>
 <span style="color: #EFEFEF">}</span><span style="color: #FFFFFF">)</span>
 
@@ -367,7 +367,7 @@ kamu dapat hilangkan informasi <code>path</code> pada <code>key</code>-nya.</p>
 
 <span style="color: #888">// Daftarkan endpoint "GET /hello"</span>
 <span style="color: #FFFFFF">app</span><span style="color: #EFEFEF">.</span><span style="color: #FAC863">get</span><span style="color: #FFFFFF">(</span><span style="color: #50E3C2">'/hello'</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #FF0078">async</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">(</span><span style="color: #FFFFFF">req</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> res</span><span style="color: #EFEFEF">)</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">=&gt;</span><span style="color: #FFFFFF"> </span><span style="color: #EFEFEF">{</span>
-<span style="color: #FFFFFF">    </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> limit </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">10</span><span style="color: #FFFFFF">      </span><span style="color: #888">// limit akses setiap menitnya</span>
+<span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> limit </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">10</span><span style="color: #FFFFFF">      </span><span style="color: #888">// limit akses setiap menitnya</span>
 <span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> path </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'/hello'</span><span style="color: #FFFFFF"> </span><span style="color: #888">// path dari API</span>
 <span style="color: #FFFFFF">  </span><span style="color: #2BA8FF">const</span><span style="color: #FFFFFF"> time </span><span style="color: #EFEFEF">=</span><span style="color: #FFFFFF"> </span><span style="color: #2BA8FF">format</span><span style="color: #FFFFFF">(</span><span style="color: #FF0078">new</span><span style="color: #FFFFFF"> Date()</span><span style="color: #EFEFEF">,</span><span style="color: #FFFFFF"> </span><span style="color: #50E3C2">'yyyyMMdd:HHmm'</span><span style="color: #FFFFFF">) </span><span style="color: #888">// waktu untuk dijadikan key  </span>
 <span style="color: #FFFFFF">  </span>
