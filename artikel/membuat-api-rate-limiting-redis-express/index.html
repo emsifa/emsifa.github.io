@@ -65,7 +65,7 @@
 <p>Rate Limiting (dalam konteks aplikasi web) adalah proses membatasi jumlah request user/client pada resource tertentu. Sebagai contoh disini kita akan coba membatasi akses user terhadap API yang dibuat menggunakan Express.js pada setiap menitnya.</p>
 <p>Sebelum mencoba ini, pastikan kamu sudah menginstall <strong><a href="https://redis.io/" target="_blank" rel="nofollow noopener noreferrer">Redis</a></strong> dan <strong><a href="https://nodejs.org/en/" target="_blank" rel="nofollow noopener noreferrer">Node.js</a></strong> terlebih dahulu. Pada tutorial ini saya menggunakan Node.js versi 10.15.3 dan Redis versi 5.0.5. Buat kamu yang pakai Windows seperti saya, kamu dapat menjalankan Redis dengan Docker.</p>
 <h2 id="kenapa-redis"><a href="#kenapa-redis" aria-hidden="true"><span class="icon icon-link"></span></a>Kenapa Redis?</h2>
-<p>Untuk membuat Rate Limiting kita bisa saja menggunakan NginX, atau session.
+<p>Untuk membuat Rate Limiting kita bisa saja menggunakan NginX atau session.
 Tapi kenapa Redis?</p>
 <ul>
 <li>Dibandingkan dengan NginX, Rate Limiting menggunakan Redis lebih fleksibel karena kita sendiri yang mengatur logic dari Rate Limiternya.</li>
