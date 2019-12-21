@@ -99,7 +99,7 @@ class LogActivityController extends Controller
         // 2. Set header untuk streaming file CSV
         $filename = "log-activities.csv";
         header("Content-type: text/csv");
-        header("Content-Disposition: 'attachment; filename={$filename}'");
+        header("Content-Disposition: attachment; filename={$filename}");
 
         // 3. Stream file CSV
         $csv = fopen("php://output", "w+");

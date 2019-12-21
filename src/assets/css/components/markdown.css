@@ -42,7 +42,7 @@
   }
 
   pre.shiki {
-    @apply py-3 px-5 mb-4 text-sm font-mono rounded-lg leading-code overflow-x-auto scrolling-touch;
+    @apply py-3 mb-4 text-sm font-mono rounded-lg leading-code overflow-x-auto scrolling-touch;
     position: relative;
     overflow: visible;
     @apply bg-gray-800 !important;
@@ -50,8 +50,61 @@
     overflow-x: auto; */
   }
 
+  .shiki[filename]:before {
+    content: attr(filename);
+    position: relative;
+    width: 100%;
+    display: block;
+    clear: both;
+    @apply bg-blue-800;
+    @apply px-5 py-1 rounded-tr-lg rounded-tl-lg mb-3;
+    margin-top: -0.8rem;
+    color: white;
+  }
+
   .shiki code {
     @apply bg-transparent border-none;
+    width: 100%;
+    padding: 0px;
+
+    .line {
+      @apply px-5;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+
+      &.highlighted {
+        background-color: rgba(255,255,255,.05);
+      }
+
+      &.plus {
+        background-color: rgba(100,255,150,.1);
+        &:before {
+          content: '+';
+          position: absolute;
+          left: 5px;
+          top: 9px;
+          font-weight: bold;
+          line-height: 0px;
+          font-size: 1.1rem;
+          @apply text-green-600;
+        }
+      }
+
+      &.minus {
+        background-color: rgba(255,100,150,.1);
+        &:before {
+          content: '-';
+          position: absolute;
+          left: 5px;
+          top: 9px;
+          font-weight: bold;
+          line-height: 0px;
+          font-size: 1.1rem;
+          @apply text-red-600;
+        }
+      }
+    }
   }
 
   pre.shiki > code {

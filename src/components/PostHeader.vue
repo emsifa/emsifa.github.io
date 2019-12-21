@@ -45,7 +45,7 @@
 <script>
 import { mapState } from 'vuex'
 import Parallax from "vue-parallaxy"
-import { dateFormat } from '@/helpers'
+import { dateFormat } from '@/helpers/utils'
 
 export default {
   props: ['post'],

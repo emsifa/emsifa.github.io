@@ -24,6 +24,15 @@
       "techStack": ["PHP", "Vue", "Bootstrap 4"]
     },
     {
+      "slug": "rust-ig-profpic",
+      "title": "IG Profile Pic Downloader",
+      "description": "Rust app to download IG HD profile picture by username",
+      "thumbnail": "/images/open-sources/igpphd.png",
+      "demoUrl": "https://igpphd.emsifa.com",
+      "repoUrl": "https://github.com/emsifa/rust-ig-profpic",
+      "techStack": ["Rust"]
+    },
+    {
       "slug": "bytefmt",
       "title": "ByteFmt",
       "description": "Rust utility untuk parsing byte string dan sebaliknya",

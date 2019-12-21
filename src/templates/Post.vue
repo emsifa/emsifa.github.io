@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { dateFormat } from '@/helpers'
+import { dateFormat } from '@/helpers/utils'
 import config from '~/.temp/config.js'
 import Alert from '@/components/Alert'
 import slugify from '@sindresorhus/slugify'
@@ -28,6 +28,7 @@ import SiteFooter from '@/components/Footer'
 import PageHeader from '~/components/PageHeader'
 import PostHeader from '~/components/PostHeader'
 import PostFooter from '~/components/PostFooter'
+import { applyFilename, resolveCodeLine } from '@/helpers/highlighter'
 
 export default {
   components: {
@@ -68,6 +69,7 @@ export default {
       this.zoom = mediumZoom.default('.markdown p > img')
     })
     this.$adaptLight()
+    this.highlightCodes()
   },
   methods: {
     imageLoadError (e) {
@@ -90,7 +92,16 @@ export default {
                 .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                 .join(' ')
     },
-
+    highlightCodes() {
+      const codes = [...document.querySelectorAll('pre.shiki > code')]
+      const hlRegex = /^(<span style="[^"]+">\&gt\;<\/span>|\&gt\;)/i
+      codes.forEach(code => {
+        applyFilename(code)
+        code.innerHTML = code.innerHTML.split(`\n`).map(line => {
+          return resolveCodeLine(line)
+        }).join(`\n`)
+      })
+    }
   },
   computed: {
     ...mapState(['light']),

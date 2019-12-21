@@ -116,7 +116,13 @@ module.exports = {
                   extensions: ['css', 'vue', 'js']
                 }
               ],
-              whitelistPatterns: [/shiki/]
+              whitelistPatterns: [
+                /shiki/,
+                /text-gray-/,
+                /text-green-/,
+                /text-red-/,
+                /bg-gray-/
+              ]
             }),
           ])
         }

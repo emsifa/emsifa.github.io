@@ -37,7 +37,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { dateFormat, timeago } from '@/helpers'
+import { dateFormat, timeago } from '@/helpers/utils'
 
 export default {
   props: ['data'],
