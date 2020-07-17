@@ -34,7 +34,7 @@
   }
 
   a {
-    @apply text-blue-600 transition-color;
+    @apply text-blue-600;
 
     &:hover {
       @apply text-blue-700;

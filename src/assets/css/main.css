@@ -22,3 +22,50 @@ details > summary:hover {
 .table-responsive {
   overflow: auto;
 }
+
+.collapse-content {
+  padding: 0px;
+  margin: 0px;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  overflow-y: hidden;
+}
+
+.collapse.closed .collapse-content {
+  height: 20px;
+}
+
+.collapse-toggle {
+  cursor: pointer;
+  @apply select-none;
+}
+
+.collapse-toggle .btn-hide,
+.collapse-toggle .btn-show {
+  color: white;
+  opacity: 0.1;
+  display: none;
+}
+
+code .collapse-content {
+  background-color: rgba(0,0,0,.1);
+}
+
+.collapse-toggle .btn-hide {
+  color: white;
+  opacity: 0.3;
+  display: inline;
+}
+
+.collapse.closed .collapse-toggle .btn-hide {
+  color: white;
+  opacity: 0.1;
+  display: none;
+}
+
+.collapse.closed .collapse-toggle .btn-show {
+  font-weight: bold;
+  color: yellow;
+  opacity: 1;
+  display: inline;
+}

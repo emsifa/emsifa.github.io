@@ -28,7 +28,7 @@ import SiteFooter from '@/components/Footer'
 import PageHeader from '~/components/PageHeader'
 import PostHeader from '~/components/PostHeader'
 import PostFooter from '~/components/PostFooter'
-import { applyFilename, resolveCodeLine } from '@/helpers/highlighter'
+import { applyFilename, resolveCodeLine, applyCollapse } from '@/helpers/highlighter'
 
 export default {
   components: {
@@ -100,6 +100,7 @@ export default {
         code.innerHTML = code.innerHTML.split(`\n`).map(line => {
           return resolveCodeLine(line)
         }).join(`\n`)
+        applyCollapse(code)
       })
     }
   },
