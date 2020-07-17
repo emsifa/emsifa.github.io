@@ -7,7 +7,9 @@ author: Muhammad Syifa
 icon: "/images/icons/graphql.png"
 cover: ""
 tags:
-    - New
+    - GraphQL
+    - PHP
+    - GraphQL PHP Journey
 ---
 
 Ehem, lama ya ga nulis. Jadi bingung gini mau nulis apa 😸.
