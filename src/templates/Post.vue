@@ -94,7 +94,6 @@ export default {
     },
     highlightCodes() {
       const codes = [...document.querySelectorAll('pre.shiki > code')]
-      const hlRegex = /^(<span style="[^"]+">\&gt\;<\/span>|\&gt\;)/i
       codes.forEach(code => {
         applyFilename(code)
         code.innerHTML = code.innerHTML.split(`\n`).map(line => {

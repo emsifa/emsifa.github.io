@@ -2,18 +2,21 @@ const HL_REGEX = /^(<span style="[^"]+">(\&gt\;|\-|\+)<\/span>|(\&gt\;|\-|\+))/i
 
 const stripTags = (html) => html.replace(/<\/?[^>]+(>|$)/g, "")
 
-const highlightClass = (line) => {
-  const match = line.match(HL_REGEX)
-  // console.log({line, match})
-  if (!match) {
-    return null
-  }
+const getText = (elStr) => {
+  const el = document.createElement('div')
+  el.innerHTML = elStr
+  return el.innerText
+}
 
-  switch (match[2]) {
-    case '&gt;': return 'highlighted'
-    case '-': return 'minus'
-    case '+': return 'plus'
-  }
+const startsWith = (haystack, needle) => {
+  return haystack.substring(0, needle.length) === needle
+}
+
+const highlightClass = (line) => {
+  const text = getText(line)
+  if (startsWith(text, '>')) return 'highlighted'
+  if (startsWith(text, '-')) return 'minus'
+  if (startsWith(text, '+')) return 'plus'
 }
 
 const highlight = (line) => line.replace(HL_REGEX, `<span class="hl"> </span>`)
@@ -22,16 +25,41 @@ const wrapLine = (line, classes = '') => `<span class="line ${classes}">${line}<
 const shouldRemoveHighlightedSpace = (line) => !line.match(/class="hl"\> \<\/span\>\<span[^>]+\>\s/)
 const removeHighlightedSpace = (line) => line.replace(`"hl"> <`, `"hl"><`)
 
+const removePrefix = (line, className) => {
+  const el = document.createElement('div')
+  el.innerHTML = line
+  const nodes = [...el.childNodes]
+  const firstNode = nodes[0]
+  if (!firstNode) {
+    return line
+  }
+
+  const text = firstNode.innerText || firstNode.toString()
+  if (className === 'highlighted' && text.trim() === '>') {
+    nodes[0] = '<span class="hl"></span>';
+  } else if (className === 'minus' && text.trim() === '-') {
+    nodes[0] = '<span class="hl"></span>';
+  } else if (className === 'plus' && text.trim() === '+') {
+    nodes[0] = '<span class="hl"></span>';
+  }
+
+  const secondNode = nodes[1]
+  const secondText = secondNode.innerText || secondNode || ''
+  const spaces = secondText.match(/^ +/)
+  if (spaces[0] && spaces[0].length % 2 !== 0) {
+    nodes[1] = secondText.replace(/^ /, '')
+  }
+
+  return `${nodes.map(n => n.outerHTML || n.toString()).join('')}`
+}
+
 export const resolveCodeLine = (line) => {
   const className = highlightClass(line)
   if (!className) {
     return wrapLine(line)
   }
 
-  line = highlight(line)
-  if (shouldRemoveHighlightedSpace(line)) {
-    line = removeHighlightedSpace(line)
-  }
+  line = removePrefix(line, className)
 
   return wrapLine(line, className)
 }
@@ -54,12 +82,6 @@ export const applyCollapse = (code) => {
   const lines = code.innerHTML.split(`\n`)
   let html = ``
   let open = false
-
-  const getText = (elStr) => {
-    const el = document.createElement('div')
-    el.innerHTML = elStr
-    return el.innerText
-  }
 
   lines.forEach((line, i) => {
     const text = getText(line).trim()
