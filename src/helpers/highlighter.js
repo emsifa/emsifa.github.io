@@ -91,10 +91,10 @@ export const applyCollapse = (code) => {
         const nextText = getText(lines[i+1])
         const indent = (nextText.match(/^( |\t)+/) || [''])[0]
         console.log({open, indent, nextText})
-        html += `<div class="collapse inline closed">`
+        html += `<div class="collapse closed">`
         const btn = `<span class='btn-show'>...</span><small class='btn-hide'>[shrink]</small>`
-        html += `\n<span class='line collapse-toggle'>${indent}${btn}</span>`
-        html += `\n<div class="collapse-content">`
+        html += `<span class='line collapse-toggle'>${indent}${btn}</span>`
+        html += `<div class="collapse-content">`
       } else {
         html += `</div></div>`
       }
@@ -110,4 +110,21 @@ export const applyCollapse = (code) => {
       container.classList.toggle('closed')
     });
   })
+}
+
+export const fixDecorationWidth = (code) => {
+  const width = code.scrollWidth
+  const highestWidth = [...code.querySelectorAll('.collapse-content')].reduce((highest, c) => {
+    const width = c.scrollWidth
+    return width > highest ? width : highest
+  }, 0);
+
+  if (highestWidth > width) {
+    code.style.width = `${highestWidth}px`
+  }
+
+  const lines = [...code.querySelectorAll('.line, .collapse-content')]
+  lines.map(line => {
+    line.style.width = `${width}px`
+  });
 }
