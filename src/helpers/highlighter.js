@@ -29,11 +29,11 @@ const removePrefix = (line, className) => {
   const el = document.createElement('div')
   el.innerHTML = line
   const nodes = [...el.childNodes]
-  const firstNode = nodes[0]
-  if (!firstNode) {
+  if (!nodes.length) {
     return line
   }
 
+  const firstNode = nodes[0]
   const text = firstNode.innerText || firstNode.toString()
   if (className === 'highlighted' && text.trim() === '>') {
     nodes[0] = '<span class="hl"></span>';
@@ -46,7 +46,7 @@ const removePrefix = (line, className) => {
   const secondNode = nodes[1]
   const secondText = secondNode.innerText || secondNode || ''
   const spaces = secondText.match(/^ +/)
-  if (spaces[0] && spaces[0].length % 2 !== 0) {
+  if (spaces && spaces[0] && spaces[0].length % 2 !== 0) {
     nodes[1] = secondText.replace(/^ /, '')
   }
 
