@@ -125,9 +125,13 @@ Dari kebutuhan diatas, kita dapat terjemahkan menjadi:
 Jadi penerapan _CSP_-nya adalah sebagai berikut:
 
 ```php
+=========================
+filename: contoh-1.php
+highlight: 2
+=========================
 <?php
 
->header("Content-Security-Policy: default-src 'self'");
+header("Content-Security-Policy: default-src 'self'");
 
 ?>
 <html>
@@ -151,9 +155,13 @@ Dari kebutuhan diatas, kalau kita terjemahkan kedalam CSP, menjadi:
 Kalau kita terapkan ke _CSP_ akan menjadi:
 
 ```php
+=====================
+filename: contoh-2.php
+highlight: 2
+=====================
 <?php
 
->header("Content-Security-Policy: default-src 'self' https://cdnjs.cloudflare.com");
+header("Content-Security-Policy: default-src 'self' https://cdnjs.cloudflare.com");
 
 ?>
 <html>
@@ -178,9 +186,13 @@ Oke, kita coba terjemahkan dulu kebutuhan diatas:
 Kalau kita terapkan ke header _CSP_ menjadi seperti ini:
 
 ```php
+=========================
+filename: contoh-3.php
+highlight: 2
+=========================
 <?php
 
->header("Content-Security-Policy: script-src 'self'; style-src 'self'; img-src: 'self'; media-src 'none'; child-src https://youtube.com");
+header("Content-Security-Policy: script-src 'self'; style-src 'self'; img-src: 'self'; media-src 'none'; child-src https://youtube.com");
 
 ?>
 <html>

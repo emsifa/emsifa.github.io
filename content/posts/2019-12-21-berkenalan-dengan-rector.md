@@ -173,7 +173,9 @@ yakni mengubah [_Ternary Operator_](https://www.php.net/manual/en/language.opera
 Pertama saya membuat file `src/sample.php`. Lalu saya isikan kode sebagai berikut:
 
 ```php
-[filename:~/Dev/rector/src/sample.php]
+===============================
+filename:~/Dev/rector/src/sample.php
+===============================
 <?php
 
 $keyword = isset($_GET['q']) ? $_GET['q'] : '';
@@ -190,7 +192,9 @@ Maka _Rector_ akan menampilkan perubahan apa saja yang dia lakukan, dan menyimpa
 Kalau kamu lihat kembali isi file `src/sample.php`, kode yang sebelumnya kita buat akan berubah menjadi seperti ini:
 
 ```php
-[filename:~/Dev/rector/src/sample.php]
+============================
+filename:~/Dev/rector/src/sample.php
+============================
 <?php
 
 $keyword = $_GET['q'] ?? '';
@@ -225,7 +229,9 @@ Oke, jadi pertama-tama saya siapkan dulu contoh file yang mau di-_refactoring_-n
 Saya ubah `src/sample.php` menjadi seperti ini:
 
 ```php
-[filename:~/Dev/rector/src/sample.php]
+============================
+filename:~/Dev/rector/src/sample.php
+============================
 <?php
 
 try {
@@ -246,7 +252,9 @@ Misalkan saya ingin menerapkan 3 buah set, yakni set `php53`, `php70` dan `php71
 Jadi mari kita buat file `rector.yaml` seperti dibawah ini:
 
 ```yaml
-[filename:~/Dev/rector/rector.yaml]
+============================
+filename:~/Dev/rector/rector.yaml
+============================
 parameters:
   sets:
     - php53
@@ -326,7 +334,9 @@ Kalau sekiranya oke, mari kita aplikasikan ke filenya dengan menghapuskan `--dry
 Sekarang, kalau kita lihat filenya, maka akan jadi seperti ini:
 
 ```php
-[filename:~/Dev/rector/src/sample.php]
+============================
+filename:~/Dev/rector/src/sample.php
+============================
 <?php
 
 use InvalidArgumentException;
