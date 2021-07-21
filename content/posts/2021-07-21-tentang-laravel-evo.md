@@ -16,7 +16,7 @@ Beberapa waktu lalu, saya membuat video cara membuat _framework_ kekinian di [ka
 
 Dan tidak lama setelahnya, saya coba menerapkan hal yang sama ke _Laravel_, dengan membuat _package_ khusus _Laravel_ yang saya beri nama _Evo_.
 
-Berikut ini adalah contoh controller saat menggunakan _Evo_ (baris yang di-_highlight_ adalah kode khusus _Evo_):
+Berikut ini adalah contoh _controller_ saat menggunakan _Evo_ (baris yang di-_highlight_ adalah kode khusus _Evo_):
 
 ```js
 ==============================
@@ -53,11 +53,11 @@ Pertanyaannya, untuk apa? gaya-gayaan doang atau ada maksudnya?
 
 Nah pada artikel ini, saya mau ceritakan manfaat dari penerapan kode seperti di atas.
 
-Btw, artikel ini saya tujukan orang-orang yang sudah pernah mengembangkan aplikasi dengan _Laravel_/_Lumen_. Jadi mungkin untuk yang belum pernah coba framework tersebut, akan sulit untuk memahami maksudnya.
+Btw, artikel ini saya tujukan orang-orang yang sudah pernah mengembangkan aplikasi dengan _Laravel_/_Lumen_. Jadi mungkin untuk yang belum pernah coba _framework_ tersebut, akan sulit untuk memahami maksudnya.
 
 #### Memperjelas Spesifikasi API Kamu
 
-Bayangin, kamu baru saja menjadi back-end developer di sebuah perusahaan, dan kamu mendapati kode controller seperti di bawah ini:
+Bayangin, kamu baru saja menjadi _back-end developer_ di sebuah perusahaan, dan kamu mendapati kode _controller_ seperti di bawah ini:
 
 ```php
 public function store(Request $request)
@@ -98,9 +98,9 @@ public function store(Request $request)
 
 Hayo coba tebak, pada kode tersebut inputannya apa aja, dan struktur dari result-nya seperti apa?
 
-Sulit kan? tentu saja. Karena Programmernya menaruh inputan dan result di sembarang tempat, sehingga kita harus jeli melihat setiap baris untuk mengetahui input dan outputnya seperti apa. Itupun ga bisa hanya dilihat dari file itu aja, pada bagian `$result['invoice'] = $invoice->toArray()`, untuk tahu isi dari invoice, kita juga harus lihat struktur database pada table invoice. Ribet.
+Sulit kan? tentu saja. Karena Programmernya mengambil _input_ dan mengisi _result_ di sembarang tempat, sehingga kita harus jeli melihat setiap baris untuk mengetahui _input_ dan _output_-nya seperti apa. Itupun ga bisa hanya dilihat dari file itu aja, pada bagian `$result['invoice'] = $invoice->toArray()`, untuk tahu isi dari data _invoice_, kita juga harus lihat struktur database pada table _invoice_. Ribeud.
 
-Dengan _Evo_, kita dapat mendefinisikan input dan output langsung pada bagian kepala dari fungsi/method. Sehingga Programmer yang baru gabung, ga perlu membaca logika program hanya untuk tahu inputnya ada apa saja, dan outputnya akan seperti apa.
+Dengan _Evo_, kita dapat mendefinisikan _input_ dan _output_ langsung pada bagian kepala dari fungsi/_method_. Sehingga Programmer yang baru gabung, ga perlu membaca logika program hanya untuk tahu inputnya ada apa saja, dan outputnya akan seperti apa.
 
 Berikut adalah kode diatas, ditulis dengan cara _Evo_:
 
@@ -115,7 +115,7 @@ public function store(
 }
 ```
 
-Untuk melihat inputnya seperti apa, pada VSCode dengan intelephense, kamu cukup tekan `ctrl` sambil arahkan cursor ke `StorePaymentDTO`. Dan kamu akan diperlihatkan `class` seperti ini, dimana propertinya adalah data dari request body.
+Untuk melihat inputan yang tersedia, pada _VSCode_ dengan _intelephense_, kamu cukup tekan `ctrl` sambil arahkan cursor ke `StorePaymentDTO`. Dan kamu akan diperlihatkan `class` seperti ini, dimana propertinya adalah data dari _request body_.
 
 ```php
 ==============================
@@ -131,10 +131,13 @@ class StorePaymentDTO extends DTO
 }
 ```
 
-Begitu pula untuk mengetahui struktur dari output. Cukup arahkan ke `StorePaymentResponse`, dan kamu akan diperlihatkan `class` dengan property seperti ini:
+Begitu pula untuk mengetahui struktur dari _output_. Cukup arahkan ke `StorePaymentResponse`, dan kamu akan diperlihatkan `class` dengan properti seperti ini:
 
 ```php
-class StorePaymentDTO extends JsonResponse
+===================================
+filename: StorePaymentResponse.php
+===================================
+class StorePaymentResponse extends JsonResponse
 {
     public int $id;
     public float $amount;
@@ -147,23 +150,22 @@ class StorePaymentDTO extends JsonResponse
 }
 ```
 
-Disana terlihat jelas, isinya apa saja, tipe datanya apa, serta nullable atau tidaknya.
+Disana terlihat jelas, isinya apa saja, tipe datanya apa, serta _nullable_ atau tidaknya.
 
-#### Membiasakan Diri membuat Arah yang Jelas
+#### Membiasakan Diri Menyiapkan Sesuatu dan Membuat Tujuan yang Jelas
 
-Programming pada dasarnya hanyalah tentang bagaimana memproses input menjadi output. 
-Input adalah apa yang kita (Programmer) miliki, sedangkan output adalah hal yang kita tuju.
-Melakukan coding tanpa tahu inputnya apa saja, dan outputnya akan seperti apa, sama seperti bepergian tanpa tahu isi tas/dompet ada apa aja, dan ga tahu mau kemana, alias luntang-lantung.
+Programming pada dasarnya hanyalah tentang bagaimana memproses _input_ menjadi _output_. 
+_Input_ adalah apa yang kita miliki, sedangkan _output_ adalah hal yang kita tuju. Melakukan _coding_ tanpa tahu _input_-nya apa saja, dan _output_-nya akan seperti apa, sama seperti bepergian tanpa tahu isi tas/dompetmu ada apa saja, dan ga tahu mau kemana, alias luntang-lantung.
 
-Menulis kode dengan cara _Evo_, melatih kamu untuk terbiasa mendefinisikan input dan output sebelum menuliskan logika program. Membiasakan kamu menyiapkan perbekalan dan menentukan tujuan sebelum bepergian.
+Menulis kode dengan cara _Evo_, melatih kamu untuk terbiasa mendefinisikan _input_ dan _output_ sebelum menuliskan logika program. Membiasakan kamu menentukan tujuan dan menyiapkan perbekalan sebelum bepergian.
 
 #### Menjaga Keharmonisan antara Back-end dengan Mobile Developer
 
-Kekurangan dari membuat _RESTful API_ dengan bahasa yang _dynamic typing_ seperti PHP atau Javascript adalah seringkali kita khilaf, lupa melakukan _casting_ tipe data. Sedangkan aplikasi mobile biasanya dibuat menggunakan bahasa pemrograman yang _static typing_, yang mana salah mengirimkan tipe data bisa berakibat fatal. Hal ini seringkali menimbulkan perselisihan antara _mobile developer_ dan _back-end developer_.
+Kekurangan dari membuat _RESTful API_ dengan bahasa yang menganut _dynamic typing_ seperti _PHP_ atau _Javascript_ adalah seringkali kita khilaf, lupa melakukan _casting_ tipe data. Sedangkan aplikasi _mobile_ biasanya dibuat menggunakan bahasa pemrograman yang _static typing_, yang mana salah mengirimkan tipe data bisa berakibat fatal. Hal ini seringkali menimbulkan perselisihan antara _mobile developer_ dan _back-end developer_.
 
-_Evo_ mencegah ini dengan melakukan _automatic type casting_, dimana setiap request dan response akan otomatis di cast sesuai dengan tipe data yang kita definisikan pada _DTO_ maupun _Response class_.
+_Evo_ mencegah ini dengan melakukan _automatic type casting_, dimana setiap _request_ dan _response_ akan otomatis di _cast_ sesuai dengan tipe data yang kita definisikan pada _DTO_ maupun _Response class_.
 
-Sebagai contoh, kita disuruh membuat response dengan struktur seperti ini:
+Sebagai contoh, kita diminta membuat _response_ dengan struktur seperti ini:
 
 ```json
 {
@@ -174,9 +176,9 @@ Sebagai contoh, kita disuruh membuat response dengan struktur seperti ini:
 }
 ```
 
-Pada database MySQL, boolean itu diwakili dengan tipe data integer berisi 0 dan 1, yang kalau kita asal kirim isi dari database, maka mobile developer akan mendapatkan integer `0` atau `1`, lebih parahnya lagi malah kadang string `"0"` atau `"1"`.
+Pada _database_ _MySQL_, _boolean_ itu diwakili dengan tipe data _integer_ berisi 0 dan 1, yang kalau kita asal kirim isi dari _database_, maka _mobile developer_ akan mendapatkan integer `0` atau `1`, lebih parahnya lagi malah kadang string `"0"` atau `"1"`.
 
-Dengan _Evo_, saat kamu mengirimkan response class seperti di bawah ini.
+Dengan _Evo_, saat kamu mengirimkan _response_ class seperti di bawah ini.
 
 ```php
 ===================================
@@ -191,15 +193,15 @@ class StoreTodoResponse extends JsonResponse
 }
 ```
 
-_Evo_ akan otomatis melakukan type casting, `id` menjadi integer, `title` menjadi string, `is_completed` menjadi boolean, dan `created_at` menjadi string.
+_Evo_ akan otomatis melakukan _type casting_, `id` menjadi integer, `title` menjadi string, `is_completed` menjadi boolean, dan `created_at` menjadi string.
 
 #### Validasi Otomatis
 
-_Evo_ melakukan pengecekan tipe data pada seluruh inputan yang dikirimkan dari HTTP request, entah itu `header`-nya, `query`-nya, `parameter`-nya, `cookie`-nya, serta `body`-nya.
+_Evo_ melakukan pengecekan tipe data pada seluruh inputan yang ada di dalam _HTTP request_, entah itu `header`-nya, `query`-nya, `parameter`-nya, `cookie`-nya, serta `body`-nya.
 
-Contoh, saat kamu menuliskan `#[Query] int $page`, _Evo_ akan menolak request dengan URL seperti `?page=bukan-angka`.
+Contoh, saat kamu menuliskan `#[Query] int $page`, _Evo_ akan menolak _request_ dengan _URL_ seperti `?page=bukan-angka`.
 
-Untuk validasi lebih _advance_-pun di _Evo_ lebih jelas dengan atribut, contohnya ini:
+Untuk validasi lebih _advance_-pun, _Evo_ menyediakan atribut yang dapat kamu gunakan seperti ini:
 
 ```php
 ==============================
@@ -212,10 +214,10 @@ class RegisterDTO extends DTO
     public string $email;
 
     #[Min(6, message: "Password minimal 6 karakter gan")]
-    #[Max(255, message: "Kepanjangan jir")]
+    #[Max(255, message: "Ga sepanjang itu juga jir")]
     public string $password;
 
-    #[Max(255, "Panjang amat! itu nama apa paragraf")]  
+    #[Max(255, "Itu nama apa paragraf masbro")]  
     public string $name;
 }
 ```
@@ -224,21 +226,21 @@ Disitu kita menuliskan validasi lewat atribut, yang mana lebih ramah untuk _Text
 
 #### Lebih Mudah dibaca Mesin
 
-Saat menjabarkan input dan output dengan cara _Evo_, tidak cuma tim kamu yang bisa dengan mudah membaca spesifikasi API kamu. Tapi mesin juga.
+Saat menjabarkan _input_ dan _output_ dengan cara _Evo_, tidak cuma tim kamu yang bisa dengan mudah membaca spesifikasi _API_ kamu. Tapi mesin juga.
 
 Terus kenapa kalau bisa dibaca mesin?
 
-Saat mesin bisa memahami keinginan kita, kita bisa menyuruh mesin membuatkan sesuatu untuk kita. Saat ini saya sedang membuatkan Swagger generator pada _Evo_. _Evo_ akan membaca kode kamu dan menampilkan dokumentasi API secara otomatis, tanpa perlu kamu menuliskan OpenAPI secara manual. 
+Saat mesin bisa memahami keinginan kita, kita bisa menyuruh mesin melakukan sesuatu untuk kita. Saat ini saya sedang membuatkan _Swagger generator_ pada _Evo_, dimana _Evo_ akan membaca kode kamu dan menampilkan dokumentasi _API_ secara otomatis, tanpa perlu kamu menuliskan _OpenAPI_ secara manual. 
 
-Yap, untuk yang ini memang masih tahap pengembangan. Tapi hal ini sangat memungkinkan. Karena di _Nest.js_ pun begitu.
+Yap, untuk yang satu ini memang masih tahap pengembangan. Tapi hal ini sangat memungkinkan. Karena _Nest.js_ pun bisa melakukan itu.
 
-Malah mungkin ga cuma Swagger generator. Tapi juga test generator, jadi _Evo_ akan generate file test serta assertionnya secara otomatis mengikuti spesifikasi yang kita tuliskan.
+Malah mungkin ga cuma _Swagger generator_. Tapi juga _test generator_, jadi _Evo_ akan generate file test serta _assertion_-nya secara otomatis mengikuti spesifikasi yang kita tuliskan.
 
 ## Penutup
 
 Itulah beberapa alasan kenapa saya membuat tools yang memanfaatkan penuh fitur atribut seperti pada _Evo_ ini. Jadi bukan cuma untuk gaya-gayaan ya, banyak juga kok manfaatnya.
 
-Untuk _Evo_ ini masih saya kembangkan sambil saya gunakan pada side-project saya.
+Untuk _Evo_ ini masih saya kembangkan sambil saya gunakan pada _side-project_ saya.
 Kalau kamu mau intip-intip pengembangannya bisa mampir ke [https://github.com/emsifa/evo](https://github.com/emsifa/evo).
 
 Sekian tulisan kali ini. Dadah ~
