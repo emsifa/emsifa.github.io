@@ -1,0 +1,28 @@
+{
+  "name": "gridsome-plugin-remark-shiki-custom",
+  "version": "0.0.1",
+  "description": "Custom remark shiki plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "shiki": "^0.2.6",
+    "shiki-languages": "^0.2.6",
+    "unist-util-visit": "^2.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-vue": "^6.0.1",
+    "eslint-plugin-vue-libs": "^4.0.0"
+  }
+}

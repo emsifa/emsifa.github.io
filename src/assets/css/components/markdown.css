@@ -1,4 +1,8 @@
 .markdown {
+  p:first-child {
+    @apply mt-0;
+  }
+
   p, ul, ol {
     @apply mb-4;
   }
@@ -8,11 +12,17 @@
   }
 
   ul {
-    @apply list-disc pl-5;
+    @apply list-disc pl-8;
+    li {
+      @apply pl-3;
+    }
   }
 
   ol {
-    @apply list-decimal pl-5;
+    @apply list-decimal pl-8;
+    li {
+      @apply pl-3;
+    }
   }
 
   h2, h3, h4, h5, h6 {
@@ -41,104 +51,16 @@
     }
   }
 
-  pre.shiki {
-    @apply py-3 mb-4 text-sm font-mono rounded-lg overflow-x-auto;
-    position: relative;
-    overflow: visible;
-    @apply bg-gray-800 !important;
-    /* overflow-y: visible;
-    overflow-x: auto; */
+  mark {
+    @apply bg-yellow-300 px-2;
   }
 
-  .shiki[filename]:before {
-    content: attr(filename);
-    position: relative;
-    width: 100%;
-    display: block;
-    clear: both;
-    @apply bg-blue-800;
-    @apply px-5 py-1 rounded-tr-lg rounded-tl-lg mb-3;
-    margin-top: -0.8rem;
-    color: white;
-  }
-
-  .shiki code {
-    @apply bg-transparent border-none;
-    width: 100%;
-    padding: 0px;
-
-    .line {
-      @apply px-5 py-1;
-      display: inline-block;
-      width: 100%;
-      position: relative;
-
-      &.highlighted {
-        background-color: rgba(255,255,255,.05);
-      }
-
-      &.plus {
-        background-color: rgba(100,255,150,.1);
-        &:before {
-          content: '+';
-          position: absolute;
-          left: 6px;
-          top: 11px;
-          font-weight: bold;
-          line-height: 0px;
-          font-size: 0.9rem;
-          @apply text-green-600;
-        }
-      }
-
-      &.minus {
-        background-color: rgba(255,100,150,.1);
-        &:before {
-          content: '-';
-          position: absolute;
-          left: 6px;
-          top: 11px;
-          font-weight: bold;
-          line-height: 0px;
-          font-size: 0.9rem;
-          @apply text-red-600;
-        }
-      }
-    }
-  }
-
-  pre.shiki > code {
-    max-width: 100%;
-    overflow: auto;
-    display: inline-block;
-  }
-/*
-  pre.shiki:after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    width: 94%;
-    margin: auto;
-    left: 0px;
-    right: 0px;
-    @apply bg-gray-700;
-    opacity: 0.15;
-    height: 10px;
-  } */
-  code {
+  p code {
     font-size: 0.9rem;
     @apply border px-1 py-1 rounded leading-3;
     @apply text-gray-700 border-gray-300 bg-gray-100 inline-block;
   }
 
-  code.shiki {
-    @apply p-4 block mb-4 font-mono text-sm overflow-x-auto;
-  }
-
-
-  mark {
-    @apply bg-yellow-300 px-2;
-  }
 
   dl {
     dt {
@@ -156,7 +78,7 @@
     @apply border-l-4 border-gray-300 py-4 px-6 italic mb-4;
 
     p {
-      @apply mb-0;
+      @apply m-0;
     }
   }
 

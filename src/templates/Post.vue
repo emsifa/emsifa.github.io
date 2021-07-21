@@ -35,12 +35,7 @@ import SiteFooter from "@/components/Footer";
 import PageHeader from "~/components/PageHeader";
 import PostHeader from "~/components/PostHeader";
 import PostFooter from "~/components/PostFooter";
-import {
-  applyFilename,
-  resolveCodeLine,
-  applyCollapse,
-  fixDecorationWidth
-} from "@/helpers/highlighter";
+import { applyMetadata } from "@/helpers/highlighter";
 
 export default {
   components: {
@@ -120,17 +115,12 @@ export default {
         .join(" ");
     },
     highlightCodes() {
-      const codes = [...document.querySelectorAll("pre.shiki > code")];
-      codes.forEach(code => {
-        applyFilename(code);
-        code.innerHTML = code.innerHTML
-          .split(`\n`)
-          .map(line => {
-            return resolveCodeLine(line);
-          })
-          .join(`\n`);
-        applyCollapse(code);
-        fixDecorationWidth(code);
+      const metadatas = [...document.querySelectorAll("div.code-metadata")];
+      metadatas.forEach(md => {
+        const code = md.parentElement.querySelector("pre.shiki");
+        if (code) {
+          applyMetadata(md, code);
+        }
       });
     }
   },

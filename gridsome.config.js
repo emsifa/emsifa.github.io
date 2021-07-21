@@ -16,8 +16,8 @@ module.exports = {
       externalLinksTarget: '_blank',
       externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
       plugins: [
-        ['gridsome-plugin-remark-shiki', {
-          theme: 'zeit',
+        ['gridsome-plugin-remark-shiki-custom', {
+          theme: 'material-theme-palenight',
           // theme: 'min-dark',
           // theme: 'dark_vs',
           // theme: 'nord',

@@ -1,0 +1,119 @@
+.markdown {
+  .code-container {
+    @apply rounded-lg mb-4 shadow-lg;
+    @apply bg-gray-800;
+    @apply overflow-hidden;
+  }
+
+  .code-metadata {
+    @apply relative text-gray-300 px-3 py-2 select-none shadow-lg z-10 font-semibold text-sm;
+  }
+
+  pre.shiki {
+    @apply my-0 py-3 text-sm font-mono overflow-x-auto rounded-none z-0;
+    position: relative;
+    overflow: visible;
+    /* overflow-y: visible;
+    overflow-x: auto; */
+  }
+
+  pre.shiki, pre.shiki > code {
+    @apply bg-gray-800 !important;
+    @apply border-none;
+  }
+
+  .shiki {
+    @apply bg-transparent border-none;
+    width: 100%;
+    padding: 0px;
+
+    code {
+      @apply w-full;
+    }
+
+    .line {
+      @apply px-3 py-1 leading-3 w-full relative;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+
+      &.highlighted {
+        background-color: rgba(255,255,255,.05);
+        &:before {
+          content: '\00B7';
+          position: absolute;
+          transform: scale(2);
+          left: 6px;
+          top: 9px;
+          font-weight: bold;
+          line-height: 0px;
+          font-size: 0.9rem;
+          @apply text-gray-500;
+          animation: blink normal 1s infinite ease-in-out;
+        }
+      }
+
+      &.faded {
+        opacity: 0.33;
+      }
+
+      &.added {
+        background-color: rgba(100,255,150,.1);
+        &:before {
+          content: '+';
+          position: absolute;
+          left: 6px;
+          top: 11px;
+          font-weight: bold;
+          line-height: 0px;
+          font-size: 0.9rem;
+          @apply text-green-600;
+        }
+      }
+
+      &.removed {
+        background-color: rgba(255,100,150,.1);
+        &:before {
+          content: '-';
+          position: absolute;
+          left: 6px;
+          top: 11px;
+          font-weight: bold;
+          line-height: 0px;
+          font-size: 0.9rem;
+          @apply text-red-600;
+        }
+      }
+    }
+
+    &.extra-indent .line {
+      @apply pl-5;
+    }
+  }
+
+  pre.shiki > code {
+    max-width: 100%;
+    overflow: auto;
+    display: inline-block;
+  }
+
+  code.shiki {
+    @apply p-4 block mb-4 font-mono text-sm overflow-x-auto;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}

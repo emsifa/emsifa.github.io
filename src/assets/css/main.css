@@ -4,6 +4,7 @@
 @import 'components/resets';
 @import 'tailwindcss/components';
 @import 'components/markdown';
+@import 'components/code';
 @import 'tailwindcss/utilities';
 
 del {
