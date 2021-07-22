@@ -18,7 +18,7 @@ Dan tidak lama setelahnya, saya coba menerapkan hal yang sama ke _Laravel_, deng
 
 Berikut ini adalah contoh _controller_ saat menggunakan _Evo_ (baris yang di-_highlight_ adalah kode khusus _Evo_):
 
-```js
+```rust
 ==============================
 filename: TodoController.php
 highlight: 1,4,5,7-10,18
@@ -38,7 +38,7 @@ class TodoController
         $todo->title = $data->title;
         $todo->is_completed = $data->completed;
         $todo->completed_by = $data->completed ? $user->id : null;
-        $todo->completed_at = $data->completed ? date('Y-m-d H:i:s') : null;
+        $todo->completed_at = $data->completed ? date("Y-m-d H:i:s") : null;
         $todo->save();
 
         return UpdateTodoResponse::fromArray($todo->toArray()); 
@@ -104,7 +104,7 @@ Dengan _Evo_, kita dapat mendefinisikan _input_ dan _output_ langsung pada bagia
 
 Berikut adalah kode diatas, ditulis dengan cara _Evo_:
 
-```php
+```rust
 #[Post]
 public function store(
     #[Body] StorePaymentDTO $data,
@@ -203,9 +203,10 @@ Contoh, saat kamu menuliskan `#[Query] int $page`, _Evo_ akan menolak _request_ 
 
 Untuk validasi lebih _advance_-pun, _Evo_ menyediakan atribut yang dapat kamu gunakan seperti ini:
 
-```php
+```rust
 ==============================
-filename: RegisterDTO
+filename: RegisterDTO.php
+highlight: 3-4,6-7,9
 ==============================
 class RegisterDTO extends DTO
 {
@@ -217,7 +218,7 @@ class RegisterDTO extends DTO
     #[Max(255, message: "Ga sepanjang itu juga jir")]
     public string $password;
 
-    #[Max(255, "Itu nama apa paragraf masbro")]  
+    #[Max(255, "Itu nama atau paragraf masbro")]  
     public string $name;
 }
 ```
