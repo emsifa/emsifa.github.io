@@ -37,8 +37,8 @@ class TodoController
         $todo = Todo::findOrFail($id);
         $todo->title = $data->title;
         $todo->is_completed = $data->completed;
-        $todo->completed_by = $user->id;
-        $todo->completed_at = date('Y-m-d H:i:s');
+        $todo->completed_by = $data->completed ? $user->id : null;
+        $todo->completed_at = $data->completed ? date('Y-m-d H:i:s') : null;
         $todo->save();
 
         return UpdateTodoResponse::fromArray($todo->toArray()); 
@@ -65,7 +65,7 @@ public function store(Request $request)
     $invoice = Invoice::findOrFail($request->invoice_id);
     $result['invoice'] = $invoice->toArray();
 
-    if (!$invoice->is_paid) {
+    if ($invoice->is_paid) {
         throw new InvoiceAlreadyPaidException();
     }
 
@@ -77,7 +77,7 @@ public function store(Request $request)
     $payment->amount = $request->amount;
 
     if ($request->payment_method == 'bank_transfer') {
-      $payment->account_number = $request->account_number;
+        $payment->account_number = $request->account_number;
         $payment->bank_id = $request->bank_id;
 
         $bank = Bank::findOrFail($request->bank_id);
