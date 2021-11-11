@@ -20,19 +20,19 @@ Sebagai contoh, disini ceritanya saya ingin menggunakan private library di `gith
 
 ## 1. Tambahkan env `GOPRIVATE`
 
-```js
+```
 go env -w GOPRIVATE=github.com/emsifa/privatelib
 ```
 
 Bisa juga pakai _wildcard_ kalau kamu punya banyak _private repo_:
 
-```js
+```
 go env -w GOPRIVATE=github.com/emsifa/*
 ```
 
 Atau pakai separator sebagai berikut:
 
-```js
+```
 go env -w GOPRIVATE=github.com/emsifa/*,bitbucket.org/emsifa/*
 ```
 
@@ -52,7 +52,7 @@ Karena disitu pakai URL git (bukan https), jadi harus punya akses [SSH](https://
 
 Sekarang di semua aplikasi Go kamu, kamu :
 
-```js
+```
 go get github.com/emsifa/privatelib
 ```
 
